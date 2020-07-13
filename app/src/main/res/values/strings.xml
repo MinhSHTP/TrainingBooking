@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Lịch đào tạo \n SHTP-TC</string>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_register_courses">Đăng ký lớp</string>
+    <string name="title_others">Thông tin khác</string>
+
+    <!--region Strings of Login Activity-->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="txt_btnLogin">Đăng nhập</string>
+    <string name="txt_btnLoginViaEmail">Đăng nhập bằng Gmail</string>
+    <string name="txt_btnSignUp">Đăng ký</string>
+    <string name="txt_btnForgetPassword">Quên mật khẩu?</string>
+    <string name="txt_lb_copyright">Copyright 2020 © by SHTP-Training Center</string>
+    <!--endregion-->
+
+    <!--region Strings of SignUp Activity-->
+    <string name="lb_email">Email:</string>
+    <string name="txt_back">Trở về</string>
+    <string name="txt_lb_hoten">Họ tên:</string>
+    <string name="txt_lb_sdt">SĐT:</string>
+    <string name="txt_lb_diachi">Địa chỉ:</string>
+    <string name="txt_lb_duong_hint">Đường...</string>
+    <string name="txt_lb_phuongxa">Phường/Xã:</string>
+    <string name="txt_lb_quanhuyen">Quận/Huyện:</string>
+    <string name="txt_lb_tinhthanhpho">Tỉnh/Thành phố:</string>
+    <string name="txt_btnConfirm">Xác nhận</string>
+    <!--endregion-->
+
+    <!--region Google Drive API key-->
+    <string name="googledrive_api_key">AIzaSyAMCo7ra78qg5yCcPLAcJWNWGdUS435Tcc</string>
+    <!--endregion-->
+
+    <!--region Strings of HomeFragment-->
+    <string name="see_detail_course"> >> Xem chi tiết </string>
+    <!--endregion-->
+
+    <!--region Strings of -->
+    <string name="tv_edit_status_color_course">Chỉnh sửa màu trạng thái</string>
+    <!--endregion-->
+
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_back"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="@string/txt_back"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tv_edit_status_color_course"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tbl_layout_status_color_course"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="1"
+        >
+
+        <TableRow>
+
+            <TextView
+                style="@style/header_tbl_status_color_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Trạng thái"
+                />
+
+            <TextView
+                style="@style/header_tbl_status_color_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Màu" />
+        </TableRow>
+
+        <TableRow>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="1"
+                android:background="@drawable/edit_txt_corners"
+                style="@style/row_tbl_status_color_course"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000"
+                android:text="Màu"
+                style="@style/row_tbl_status_color_course"
+                />
+        </TableRow>
+
+
+    </TableLayout>
+
+
+</LinearLayout>
