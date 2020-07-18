@@ -1,11 +1,9 @@
 package com.shtptraining.trainingbooking.Commons.CallAPIs;
 
-import com.shtptraining.trainingbooking.Models.Account;
+import com.shtptraining.trainingbooking.Commons.Constants;
 import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
-
-import org.json.JSONArray;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,9 +16,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface CallWebAPI {
     OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
@@ -30,7 +25,7 @@ public interface CallWebAPI {
             .build();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://elearningrobotsimulation.000webhostapp.com/TrainingBookingAPI/api/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build();

@@ -35,8 +35,15 @@
     <string name="see_detail_course"> >> Xem chi tiết </string>
     <!--endregion-->
 
-    <!--region Strings of -->
+    <!--region Strings of Edit Status Color-->
+    <string name="tv_edit_account">Chỉnh sửa tài khoản</string>
+    <string name="tv_edit_course">Chỉnh sửa màu khóa học</string>
     <string name="tv_edit_status_color_course">Chỉnh sửa màu trạng thái</string>
     <!--endregion-->
+
+    <!--region Strings of -->
+    <string name="tv_edit">Chỉnh sửa</string>
+    <!--endregion-->
+
 
 </resources>

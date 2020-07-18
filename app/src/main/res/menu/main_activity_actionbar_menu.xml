@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btn_edit"
+        android:icon="@drawable/ic_admin_edit"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/btn_edit_account"
+                android:icon="@drawable/ic_admin_edit_account"
+                android:title="@string/tv_edit_account" />
+            <item
+                android:id="@+id/btn_edit_status_color_course"
+                android:icon="@drawable/ic_admin_edit_status_color_course"
+                android:title="@string/tv_edit_status_color_course" />
+            <item
+                android:id="@+id/btn_edit_course"
+                android:icon="@drawable/ic_admin_edit_course"
+                android:title="@string/tv_edit_course" />
+        </menu>
+
+    </item>
+</menu>

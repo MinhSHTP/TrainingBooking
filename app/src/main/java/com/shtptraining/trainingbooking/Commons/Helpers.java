@@ -15,8 +15,6 @@ import com.shtptraining.trainingbooking.Commons.MappingAddress.QuanHuyenPhuongXa
 import com.shtptraining.trainingbooking.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.zip.Inflater;
 
 public class Helpers {
     public static AlertDialog _dialog;
@@ -80,9 +78,8 @@ public class Helpers {
         _dialog.show();
     }
 
-    public static void dismissLoadingDialog(){
-        if(_dialog != null)
-        {
+    public static void dismissLoadingDialog() {
+        if (_dialog != null) {
             _dialog.dismiss();
         }
     }

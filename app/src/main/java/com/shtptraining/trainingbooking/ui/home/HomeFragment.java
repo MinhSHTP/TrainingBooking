@@ -84,9 +84,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
             init();
             boolean resultLoadData = loadDataFromAPI();
-            if (resultLoadData)
+            if (resultLoadData) {
                 Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
-            Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+            } else {
+                Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+            }
         } catch (Exception ex) {
             Log.d(TAG, ex.toString());
             Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
@@ -126,7 +128,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
                         try {
                             Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
-                            loadDataFromAPI();
+                            boolean resultLoadData = loadDataFromAPI();
+                            if (resultLoadData) {
+                                Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
+                            } else {
+                                Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+                            }
                             Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
                         } catch (Exception ex) {
                             Log.d(TAG, ex.toString());

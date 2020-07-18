@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
+import com.shtptraining.trainingbooking.Commons.Constants;
 import com.shtptraining.trainingbooking.Commons.Helpers;
 import com.shtptraining.trainingbooking.MainActivity;
 import com.shtptraining.trainingbooking.Models.Account;
@@ -72,24 +74,29 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener 
                 callWebAPI.getAccountLogin(_et_email.getText().toString(), _et_password.getText().toString()).enqueue(new Callback<MessageFromAPI>() {
                     @Override
                     public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-                        if(response.body().getStatus().equals("success"))
-                        {
+                        if (response.body().getStatus().equals("success")) {
                             Helpers.showToast(getBaseContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT);
                             Intent mainAct = new Intent(LoginAct.this, MainActivity.class);
+                            ArrayList<Account> account_login = new Gson().fromJson(response.body().getData(), new TypeToken<ArrayList<Account>>() {
+                            }.getType());
+                            Constants.ACCOUNT_LOGIN = account_login.get(0);
+                            Helpers.showToast(getApplicationContext(), "Xin chào " + Constants.ACCOUNT_LOGIN.getName().toString(), 0);
+                            Helpers.dismissLoadingDialog();
                             startActivity(mainAct);
                             finish();
-                        }
-                        else
-                        {
-                            switch (response.body().toString())
-                            {
+                        } else {
+                            switch (response.body().toString()) {
                                 case "Server is down":
                                     Helpers.showToast(getBaseContext(), "Kết nối server thất bại", Toast.LENGTH_SHORT);
                                     break;
                                 case "Login failed":
                                     Helpers.showToast(getBaseContext(), "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT);
                                     break;
+                                default:
+                                    Helpers.showToast(getBaseContext(), "Kết nối server thất bại", Toast.LENGTH_SHORT);
+                                    break;
                             }
+                            Helpers.dismissLoadingDialog();
                         }
                     }
 
