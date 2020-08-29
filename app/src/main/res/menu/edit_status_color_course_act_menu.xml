@@ -8,6 +8,10 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/btn_Add"
+                android:icon="@drawable/ic_add_item"
+                android:title="Thêm" />
+            <item
                 android:id="@+id/btn_Save"
                 android:icon="@drawable/ic_save"
                 android:title="Lưu" />

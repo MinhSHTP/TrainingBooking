@@ -1,13 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_row="2">-->
+
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/tv_edit_status_color_course"-->
+<!--                android:textSize="19sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <TableLayout-->
+<!--                android:id="@+id/tbl_layout_status_color_course"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:stretchColumns="1"></TableLayout>-->
+<!--        </LinearLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+<!--</FrameLayout>-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_row="2">
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabAlignmentMode="center">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/edit_status_color_course_bottom_menu" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -15,20 +67,296 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/tv_edit_status_color_course"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
             <TableLayout
                 android:id="@+id/tbl_layout_status_color_course"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:stretchColumns="1"></TableLayout>
+                android:stretchColumns="1">
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow><TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+
+                <!--                <TableRow>-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/tv_edit_status_color_course" />-->
+                <!--                </TableRow>-->
+            </TableLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_Add_Status_Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_anchor="@id/bottom_app_bar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

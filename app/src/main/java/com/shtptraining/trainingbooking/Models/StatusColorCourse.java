@@ -26,4 +26,16 @@ public class StatusColorCourse {
     public String getColorString() {
         return ColorString;
     }
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setColorString(String colorString) {
+        ColorString = colorString;
+    }
 }

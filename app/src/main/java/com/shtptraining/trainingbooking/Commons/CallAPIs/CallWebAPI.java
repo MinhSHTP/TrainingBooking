@@ -31,19 +31,19 @@ public interface CallWebAPI {
             .build();
 
     @FormUrlEncoded
-    @POST("AccountLogin.php?")
-    Call<MessageFromAPI> getAccountLogin(@Field("email") String email, @Field("password") String password);
+    @POST("Account/POST/AccountLogin.php?")
+    Call<MessageFromAPI> Login(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("GetAllCoursesByDate.php")
+    @POST("Course/GET/GetAllCoursesByDate.php")
         //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCoursesByDate(@Field("startDate") String startDate);
 
-    @GET("GetAllCoursesWithStatusColor.php")
+    @GET("Course/GET/GetAllCoursesWithStatusColor.php")
         //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCourses();
 
-    @GET("GetAllStatusColorCourses.php")
+    @GET("StatusColorCourse/GET/GetAllStatusColorCourses.php")
     Call<List<StatusColorCourse>> getAllStatusColorCourses();
 
 

@@ -71,10 +71,10 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener 
             case R.id.btnLogin:
                 Helpers.showLoadingDialog(this, "Đang đăng nhập...");
                 CallWebAPI callWebAPI = retrofit.create(CallWebAPI.class);
-                callWebAPI.getAccountLogin(_et_email.getText().toString(), _et_password.getText().toString()).enqueue(new Callback<MessageFromAPI>() {
+                callWebAPI.Login(_et_email.getText().toString(), _et_password.getText().toString()).enqueue(new Callback<MessageFromAPI>() {
                     @Override
                     public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-                        if (response.body().getStatus().equals("success")) {
+                        if (response.body() != null && response.body().getStatus().equals("success")) {
                             Helpers.showToast(getBaseContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT);
                             Intent mainAct = new Intent(LoginAct.this, MainActivity.class);
                             ArrayList<Account> account_login = new Gson().fromJson(response.body().getData(), new TypeToken<ArrayList<Account>>() {

@@ -36,9 +36,12 @@
     <!--endregion-->
 
     <!--region Strings of Edit Status Color-->
-    <string name="tv_edit_account">Chỉnh sửa tài khoản</string>
-    <string name="tv_edit_course">Chỉnh sửa màu khóa học</string>
-    <string name="tv_edit_status_color_course">Chỉnh sửa màu trạng thái</string>
+    <string name="tv_edit_account">Tài khoản</string>
+    <string name="tv_edit_course">Khóa học / Lớp học</string>
+    <string name="tv_edit_status_color_course">Màu trạng thái</string>
+    <string name="tv_save">Lưu bảng trạng thái</string>
+    <string name="tv_add_item">Thêm trạng thái</string>
+    <string name="tv_undo">Hoàn tác bảng trạng thái</string>
     <!--endregion-->
 
     <!--region Strings of -->
