@@ -58,13 +58,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_edit_course:
                 Intent editCourseAct = new Intent(MainActivity.this, EditCourseAct.class);
                 startActivity(editCourseAct);
-                finish();
 //                Helpers.showToast(MainActivity.this, "Chức năng này hiện đang trong giai đoạn phát triển", 0);
                 break;
             case R.id.btn_edit_status_color_course:
                 Intent editStatusColorCourseAct = new Intent(MainActivity.this, EditStatusColorCourseAct.class);
                 startActivity(editStatusColorCourseAct);
-                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

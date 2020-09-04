@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -143,6 +144,16 @@ public class EditStatusColorCourseAct extends AppCompatActivity {
 //        _tbl_layout_status_color_course.setColumnStretchable(0,true);
 //        _tbl_layout_status_color_course.setColumnStretchable(1,true);
         loadDataStatusColorCourse();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
