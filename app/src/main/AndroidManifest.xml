@@ -46,6 +46,16 @@
             <!--            </intent-filter>-->
         </activity>
 
+        <activity
+            android:name=".ui.EditCourseAct"
+            android:label="@string/lb_edit_course_act">
+
+        </activity>
+        <activity
+            android:name=".ui.CreateCourseAct"
+            android:label="@string/lb_create_course_act">
+
+        </activity>
     </application>
 
 </manifest>

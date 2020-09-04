@@ -32,6 +32,7 @@ import retrofit2.Response;
 import static com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI.retrofit;
 
 public class LoginAct extends AppCompatActivity implements View.OnClickListener {
+    private String TAG = "LoginAct";
     private ArrayList<Account> _Accounts = new ArrayList<Account>();
     Gson _gson = new Gson();
     TextInputEditText _et_email, _et_password;

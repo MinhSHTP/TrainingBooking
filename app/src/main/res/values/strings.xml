@@ -44,8 +44,22 @@
     <string name="tv_undo">Hoàn tác bảng trạng thái</string>
     <!--endregion-->
 
-    <!--region Strings of -->
+    <!--region Strings of Home Page-->
     <string name="tv_edit">Chỉnh sửa</string>
+    <!--endregion-->
+
+    <!--region Strings of EditCourseAct-->
+    <string name="tv_course_name">Khóa học</string>
+    <string name="tv_course_trainer">Giảng viên</string>
+    <string name="tv_course_numberOf">Số lượng</string>
+    <string name="tv_course_startDate">Ngày khai giảng</string>
+    <string name="tv_course_detail">Chi tiết</string>
+    <string name="title_edit_course">Danh sách các khóa học</string>
+    <string name="lb_edit_course_act">Khóa học / Môn học</string>
+    <!--endregion-->
+
+    <!--region Strings of CreateCourseAct-->
+    <string name="lb_create_course_act">Thêm Khóa học / Môn học</string>
     <!--endregion-->
 
 

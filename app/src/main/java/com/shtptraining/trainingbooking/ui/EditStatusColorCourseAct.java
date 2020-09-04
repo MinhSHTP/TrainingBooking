@@ -67,7 +67,6 @@ public class EditStatusColorCourseAct extends AppCompatActivity {
         _resources = getResources();
         _tbl_layout_status_color_course = (TableLayout) findViewById(R.id.tbl_layout_status_color_course);
         _bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        _bottomNavigationView.getMenu().findItem(R.id.btn_Save);
         _bottomNavigationView.getMenu().findItem(R.id.btn_Save).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

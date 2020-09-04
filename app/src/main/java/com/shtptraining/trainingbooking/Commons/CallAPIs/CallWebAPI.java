@@ -46,5 +46,11 @@ public interface CallWebAPI {
     @GET("StatusColorCourse/GET/GetAllStatusColorCourses.php")
     Call<List<StatusColorCourse>> getAllStatusColorCourses();
 
-
+    @FormUrlEncoded
+    @POST("Course/POST/CreateCourse.php")
+    Call<MessageFromAPI> createCourse(
+            @Field("name") String name, @Field("duration_date") String duration_date, @Field("duration_time") String duration_time,
+            @Field("duration") String duration, @Field("time") String time, @Field("date") String date,
+            @Field("start_date") String start_date, @Field("trainer") String trainer, @Field("fee") String fee,
+            @Field("status") int status, @Field("numberof") int numberof);
 }

@@ -63,8 +63,13 @@
         <item name="android:background">@drawable/bg_header_tbl_status_color_course</item>
 
     </style>
+
     <style name="row_tbl_status_color_course">
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="header_table">
+        <item name="android:gravity">center</item>
     </style>
 </resources>

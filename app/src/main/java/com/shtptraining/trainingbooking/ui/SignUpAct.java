@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class SignUpAct extends AppCompatActivity {
+    private String TAG = "SignUpAct";
+
     String jsonStringTinhThanh;
     String jsonStringPhuongXa;
     String jsonStringQuanHuyen;
