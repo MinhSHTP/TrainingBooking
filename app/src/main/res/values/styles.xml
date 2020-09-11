@@ -72,4 +72,9 @@
     <style name="header_table">
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="et_create_course_act">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@android:drawable/editbox_background_normal</item>
+    </style>
 </resources>

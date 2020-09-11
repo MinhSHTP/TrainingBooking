@@ -60,6 +60,17 @@
 
     <!--region Strings of CreateCourseAct-->
     <string name="lb_create_course_act">Thêm Khóa học / Môn học</string>
+    <string name="tv_name_course">Tên khóa học</string>
+    <string name="tv_duration_date_course">Thời gian học</string>
+    <string name="tv_duration_time_course">Số giờ học</string>
+    <string name="tv_duration_course">Số buổi</string>
+    <string name="tv_time_course">Giờ học</string>
+    <string name="tv_date_course">Ngày học</string>
+    <string name="tv_start_date_course">Ngày khai giảng</string>
+    <string name="tv_trainer_course">Giảng viên</string>
+    <string name="tv_fee_course">Học phí</string>
+    <string name="tv_status_course">Trạng thái</string>
+    <string name="tv_numberof_course">Số lượng</string>
     <!--endregion-->
 
 

@@ -1,7 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:padding="5dp">
 
+    <TableRow android:gravity="center">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/lb_create_course_act"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_name_course" />
+
+        <EditText
+            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            style="@style/et_create_course_act" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_duration_date_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_duration_time_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_duration_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_time_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_date_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_start_date_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_trainer_course" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_fee_course" />
+
+        <EditText
+            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:background="@android:drawable/editbox_background_normal" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_status_course" />
+
+        <Spinner
+            android:id="@+id/spinner_status_course"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@android:drawable/btn_dropdown" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/tv_numberof_course" />
+
+        <NumberPicker
+            android:layout_height="50dp"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="25dp"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Lưu"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_green_dark" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Trở lại"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_dark" />
+    </TableRow>
 
 </TableLayout>
