@@ -108,7 +108,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/date_course_layout"
+        android:id="@+id/time_course_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -118,11 +118,120 @@
 
         <TextView
             style="@style/tv_create_course_act"
+            android:text="@string/tv_time_course" />
+
+        <Button
+            android:id="@+id/btn_time_course"
+            style="@style/et_create_course_act"
+            android:hint="@string/btn_chose_time_course" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/date_course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_course_layout">
+
+        <TextView
+            style="@style/tv_create_course_act"
             android:text="@string/tv_date_course" />
 
         <Button
             android:id="@+id/btn_date_course"
+            android:hint="@string/btn_chose_date_course"
             style="@style/et_create_course_act" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/start_date_course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_course_layout">
+
+        <TextView
+            style="@style/tv_create_course_act"
+            android:text="@string/tv_start_date_course" />
+
+        <ImageView
+            android:id="@+id/datepicker_start_date_course"
+            style="@style/imageview_create_course_act" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fee_course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_date_course_layout">
+
+        <TextView
+            style="@style/tv_create_course_act"
+            android:text="@string/tv_fee_course" />
+
+        <EditText
+            android:id="@+id/et_fee_course"
+            style="@style/et_create_course_act" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/numberOf_course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fee_course_layout">
+
+        <TextView
+            style="@style/tv_create_course_act"
+            android:text="@string/tv_numberof_course" />
+
+        <EditText
+            android:id="@+id/et_numberOf_course"
+            style="@style/et_create_course_act" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/status_course_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberOf_course_layout">
+
+        <TextView
+            style="@style/tv_create_course_act"
+            android:text="@string/tv_status_course" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/et_status_course"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="3dp"
+                android:background="@android:color/red" />
+
+            <TextView
+                style="@style/tv_create_course_act"
+                android:gravity="center|left"
+                android:padding="3dp"
+                android:text="@string/tv_status_course" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout><!--<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--    android:layout_width="match_parent"-->

@@ -71,6 +71,8 @@
     <string name="tv_fee_course">Học phí</string>
     <string name="tv_status_course">Trạng thái</string>
     <string name="tv_numberof_course">Số lượng</string>
+    <string name="btn_chose_date_course">Nhấn chọn ngày</string>
+    <string name="btn_chose_time_course">Nhấn chọn giờ</string>
     <!--endregion-->
 
 
