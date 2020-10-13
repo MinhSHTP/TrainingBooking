@@ -49,7 +49,8 @@
 
         <EditText
             android:id="@+id/et_duration_date_course"
-            style="@style/et_create_course_act" />
+            style="@style/et_create_course_act"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +87,8 @@
 
         <EditText
             android:id="@+id/et_duration_time_course"
-            style="@style/et_create_course_act" />
+            style="@style/et_create_course_act"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -178,7 +180,8 @@
 
         <EditText
             android:id="@+id/et_fee_course"
-            style="@style/et_create_course_act" />
+            style="@style/et_create_course_act"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -196,7 +199,8 @@
 
         <EditText
             android:id="@+id/et_numberOf_course"
-            style="@style/et_create_course_act" />
+            style="@style/et_create_course_act"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -219,13 +223,14 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/et_status_course"
+                android:id="@+id/iv_status_course"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="3dp"
                 android:background="@android:color/red" />
 
             <TextView
+                android:id="@+id/tv_status_course"
                 style="@style/tv_create_course_act"
                 android:gravity="center|left"
                 android:padding="3dp"
