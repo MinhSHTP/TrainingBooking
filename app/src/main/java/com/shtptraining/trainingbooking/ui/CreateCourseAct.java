@@ -1,11 +1,14 @@
 package com.shtptraining.trainingbooking.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,17 +32,21 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     public Spinner _spinner_course_trainer;
 
-    public Button _btn_time_course, _btn_date_course;
+    public Button _btn_time_course, _btn_date_course, _btn_start_date_course;
 
-    public ImageView _datepicker_start_date_course, _iv_status_course;
+    public ImageView _iv_status_course;
 
     public TimePickerDialog _timePickerDialog;
 
     public DatePickerDialog _datePickerDialog;
 
+    private Dialog _chose_date_dialog;
+
     private int _lastSelectedYear;
     private int _lastSelectedMonth;
     private int _lastSelectedDayOfMonth;
+
+    private int _lastSelectedDayOfWeek;
 
     private int _lastSelectedHour;
     private int _lastSelectedMinutes;
@@ -67,11 +74,11 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
         _btn_time_course = (Button) findViewById(R.id.btn_time_course);
         _btn_date_course = (Button) findViewById(R.id.btn_date_course);
+        _btn_start_date_course = (Button) findViewById(R.id.btn_start_date_course);
 
-        _datepicker_start_date_course = (ImageView) findViewById(R.id.datepicker_start_date_course);
         _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
 
-        _datepicker_start_date_course.setOnClickListener(this);
+        _btn_start_date_course.setOnClickListener(this);
         _iv_status_course.setOnClickListener(this);
         _btn_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
@@ -112,6 +119,50 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
                 break;
             case R.id.btn_date_course:
+                _chose_date_dialog = new Dialog(this);
+                _chose_date_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                _chose_date_dialog.setContentView(R.layout.custom_chose_date_dialog);
+                Button btn_confirm_chose_date = _chose_date_dialog.findViewById(R.id.btn_confirm_chose_date);
+                CheckBox chkbox_Monday = (CheckBox) findViewById(R.id.chkbox_Monday);
+                CheckBox chkbox_Tuesday = (CheckBox) findViewById(R.id.chkbox_Tuesday);
+                CheckBox chkbox_Wednesday = (CheckBox) findViewById(R.id.chkbox_Wednesday);
+                CheckBox chkbox_Thursday = (CheckBox) findViewById(R.id.chkbox_Thursday);
+                CheckBox chkbox_Friday = (CheckBox) findViewById(R.id.chkbox_Friday);
+                CheckBox chkbox_Saturday = (CheckBox) findViewById(R.id.chkbox_Saturday);
+                CheckBox chkbox_Sunday = (CheckBox) findViewById(R.id.chkbox_Sunday);
+                btn_confirm_chose_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        StringBuilder selected_days = new StringBuilder();
+
+                        selected_days.append(chkbox_Monday.isChecked() ? R.string.chkbox_Monday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Tuesday.isChecked() ? R.string.chkbox_Tuesday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Wednesday.isChecked() ? R.string.chkbox_Wednesday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Thursday.isChecked() ? R.string.chkbox_Thursday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Friday.isChecked() ? R.string.chkbox_Friday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Saturday.isChecked() ? R.string.chkbox_Saturday : "");
+                        selected_days.append(", ");
+
+                        selected_days.append(chkbox_Sunday.isChecked() ? R.string.chkbox_Sunday : "");
+
+                        _btn_date_course.setHint(selected_days);
+                    }
+                });
+                _chose_date_dialog.show();
+                break;
+            case R.id.iv_status_course:
+                break;
+            case R.id.btn_start_date_course:
                 _lastSelectedDayOfMonth = cldr.get(Calendar.DAY_OF_MONTH);
                 _lastSelectedMonth = cldr.get(Calendar.MONTH);
                 _lastSelectedYear = cldr.get(Calendar.YEAR);
@@ -140,10 +191,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
                 // Show
                 _datePickerDialog.show();
-                break;
-            case R.id.iv_status_course:
-                break;
-            case R.id.datepicker_start_date_course:
                 break;
         }
     }

@@ -160,9 +160,11 @@
             style="@style/tv_create_course_act"
             android:text="@string/tv_start_date_course" />
 
-        <ImageView
-            android:id="@+id/datepicker_start_date_course"
-            style="@style/imageview_create_course_act" />
+        <Button
+            android:id="@+id/btn_start_date_course"
+            android:hint="@string/btn_chose_start_date_course"
+            style="@style/et_create_course_act" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -181,7 +183,7 @@
         <EditText
             android:id="@+id/et_fee_course"
             style="@style/et_create_course_act"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -233,7 +235,7 @@
                 style="@style/tv_create_course_act"
                 android:gravity="center|left"
                 android:padding="3dp"
-                android:text="@string/tv_status_course" />
+                android:hint="@string/tv_status_course" />
         </LinearLayout>
 
     </LinearLayout>

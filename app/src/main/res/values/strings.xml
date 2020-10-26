@@ -71,8 +71,17 @@
     <string name="tv_fee_course">Học phí</string>
     <string name="tv_status_course">Trạng thái</string>
     <string name="tv_numberof_course">Số lượng</string>
-    <string name="btn_chose_date_course">Nhấn chọn ngày</string>
+    <string name="btn_chose_date_course">Nhấn chọn ngày trong tuần</string>
+    <string name="btn_chose_start_date_course">Nhấn chọn ngày</string>
     <string name="btn_chose_time_course">Nhấn chọn giờ</string>
+
+    <string name="chkbox_Monday">Thứ 2</string>
+    <string name="chkbox_Tuesday">Thứ 3</string>
+    <string name="chkbox_Wednesday">Thứ 4</string>
+    <string name="chkbox_Thursday">Thứ 5</string>
+    <string name="chkbox_Friday">Thứ 6</string>
+    <string name="chkbox_Saturday">Thứ 7</string>
+    <string name="chkbox_Sunday">Chủ nhật</string>
     <!--endregion-->
 
 
