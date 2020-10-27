@@ -21,7 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shtptraining.trainingbooking.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "CreateCourseAct";
@@ -122,40 +125,68 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 _chose_date_dialog = new Dialog(this);
                 _chose_date_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 _chose_date_dialog.setContentView(R.layout.custom_chose_date_dialog);
-                Button btn_confirm_chose_date = _chose_date_dialog.findViewById(R.id.btn_confirm_chose_date);
-                CheckBox chkbox_Monday = (CheckBox) findViewById(R.id.chkbox_Monday);
-                CheckBox chkbox_Tuesday = (CheckBox) findViewById(R.id.chkbox_Tuesday);
-                CheckBox chkbox_Wednesday = (CheckBox) findViewById(R.id.chkbox_Wednesday);
-                CheckBox chkbox_Thursday = (CheckBox) findViewById(R.id.chkbox_Thursday);
-                CheckBox chkbox_Friday = (CheckBox) findViewById(R.id.chkbox_Friday);
-                CheckBox chkbox_Saturday = (CheckBox) findViewById(R.id.chkbox_Saturday);
-                CheckBox chkbox_Sunday = (CheckBox) findViewById(R.id.chkbox_Sunday);
+
+                Button btn_confirm_chose_date = (Button) _chose_date_dialog.findViewById(R.id.btn_confirm_chose_date);
+
+                CheckBox chkbox_Monday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Monday);
+                CheckBox chkbox_Tuesday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Tuesday);
+                CheckBox chkbox_Wednesday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Wednesday);
+                CheckBox chkbox_Thursday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Thursday);
+                CheckBox chkbox_Friday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Friday);
+                CheckBox chkbox_Saturday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Saturday);
+                CheckBox chkbox_Sunday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Sunday);
+
+                Dictionary<String, CheckBox> chkbox_days = new Hashtable<>();
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Monday), chkbox_Monday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Tuesday), chkbox_Tuesday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Wednesday), chkbox_Wednesday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Thursday), chkbox_Thursday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Friday), chkbox_Friday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Saturday), chkbox_Saturday);
+                chkbox_days.put(getBaseContext().getString(R.string.chkbox_Sunday), chkbox_Sunday);
+
+                ArrayList<String> daysOfThatWeek = new ArrayList<>();
+                daysOfThatWeek.add(getString(R.string.chkbox_Monday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Tuesday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Wednesday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Thursday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Friday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Saturday));
+                daysOfThatWeek.add(getString(R.string.chkbox_Sunday));
+
                 btn_confirm_chose_date.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         StringBuilder selected_days = new StringBuilder();
 
-                        selected_days.append(chkbox_Monday.isChecked() ? R.string.chkbox_Monday : "");
-                        selected_days.append(", ");
+                        for (int i = 0; i < daysOfThatWeek.size(); i++) {
+                            if (chkbox_days.get(daysOfThatWeek.get(i)).isChecked()) {
+                                selected_days.append(daysOfThatWeek.get(i) + ", ");
+                            }
+                        }
 
-                        selected_days.append(chkbox_Tuesday.isChecked() ? R.string.chkbox_Tuesday : "");
-                        selected_days.append(", ");
+//                        selected_days.append(chkbox_Monday.isChecked() ? getBaseContext().getString(R.string.chkbox_Monday) + ", " : "");
 
-                        selected_days.append(chkbox_Wednesday.isChecked() ? R.string.chkbox_Wednesday : "");
-                        selected_days.append(", ");
+//                        selected_days.append(chkbox_Tuesday.isChecked() ? getBaseContext().getString(R.string.chkbox_Tuesday) + ", " : "");
 
-                        selected_days.append(chkbox_Thursday.isChecked() ? R.string.chkbox_Thursday : "");
-                        selected_days.append(", ");
+//                        selected_days.append(chkbox_Wednesday.isChecked() ? getBaseContext().getString(R.string.chkbox_Wednesday) + ", " : "");
 
-                        selected_days.append(chkbox_Friday.isChecked() ? R.string.chkbox_Friday : "");
-                        selected_days.append(", ");
+//                        selected_days.append(chkbox_Thursday.isChecked() ? getBaseContext().getString(R.string.chkbox_Thursday) + ", " : "");
 
-                        selected_days.append(chkbox_Saturday.isChecked() ? R.string.chkbox_Saturday : "");
-                        selected_days.append(", ");
+//                        selected_days.append(chkbox_Friday.isChecked() ? getBaseContext().getString(R.string.chkbox_Friday) + ", " : "");
 
-                        selected_days.append(chkbox_Sunday.isChecked() ? R.string.chkbox_Sunday : "");
+//                        selected_days.append(chkbox_Saturday.isChecked() ? getBaseContext().getString(R.string.chkbox_Saturday) + ", " : "");
 
-                        _btn_date_course.setHint(selected_days);
+//                        selected_days.append(chkbox_Sunday.isChecked() ? getBaseContext().getString(R.string.chkbox_Sunday) : "");
+
+                        if (!selected_days.toString().isEmpty()) {
+                            if (selected_days.toString().endsWith(", ")) {
+                                _btn_date_course.setHint(selected_days.toString().substring(0, selected_days.length() - 2));
+                            } else {
+                                _btn_date_course.setHint(selected_days.toString());
+                            }
+                            _chose_date_dialog.hide();
+                        }
                     }
                 });
                 _chose_date_dialog.show();
