@@ -4,31 +4,43 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesSpinnerAdapter;
+import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
+import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
-public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI.retrofit;
+
+public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private String TAG = "CreateCourseAct";
-
+    public static CallWebAPI _callWebAPI = retrofit.create(CallWebAPI.class);
     public EditText _et_name_course, _et_duration_date_course,
             _et_duration_course, _et_duration_time_course,
             _et_fee_course, _et_numberOf_course;
@@ -37,7 +49,11 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     public Button _btn_time_course, _btn_date_course, _btn_start_date_course;
 
-    public ImageView _iv_status_course;
+//    public ImageView _iv_status_course;
+
+//    public TextView _tv_status_course;
+
+    public Spinner _spinner_status_course;
 
     public TimePickerDialog _timePickerDialog;
 
@@ -54,12 +70,23 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     private int _lastSelectedHour;
     private int _lastSelectedMinutes;
 
+    List<StatusColorCourse> _statusColorCourses = new ArrayList<StatusColorCourse>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        _spinner_status_course = (Spinner) findViewById(R.id.spinner_status_course);
+        _spinner_status_course.setOnItemSelectedListener(this);
+
+        loadDataStatusColorCourse();
+
+        StatusColorCoursesSpinnerAdapter spinnerAdapter = new StatusColorCoursesSpinnerAdapter(CreateCourseAct.this, _statusColorCourses);
+        _spinner_status_course.setAdapter(spinnerAdapter);
+
     }
 
     @Override
@@ -79,13 +106,28 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _btn_date_course = (Button) findViewById(R.id.btn_date_course);
         _btn_start_date_course = (Button) findViewById(R.id.btn_start_date_course);
 
-        _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
+//        _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
+//        _tv_status_course = (TextView) findViewById(R.id.tv_status_course);
 
         _btn_start_date_course.setOnClickListener(this);
-        _iv_status_course.setOnClickListener(this);
+//        _iv_status_course.setOnClickListener(this);
         _btn_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
+    }
 
+    private void loadDataStatusColorCourse() {
+        _callWebAPI.getAllStatusColorCourses().enqueue(new Callback<List<StatusColorCourse>>() {
+            @Override
+            public void onResponse(Call<List<StatusColorCourse>> call, Response<List<StatusColorCourse>> response) {
+                _statusColorCourses = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<StatusColorCourse>> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
     }
 
     @Override
@@ -175,20 +217,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                             }
                         }
 
-//                        selected_days.append(chkbox_Monday.isChecked() ? getBaseContext().getString(R.string.chkbox_Monday) + ", " : "");
-
-//                        selected_days.append(chkbox_Tuesday.isChecked() ? getBaseContext().getString(R.string.chkbox_Tuesday) + ", " : "");
-
-//                        selected_days.append(chkbox_Wednesday.isChecked() ? getBaseContext().getString(R.string.chkbox_Wednesday) + ", " : "");
-
-//                        selected_days.append(chkbox_Thursday.isChecked() ? getBaseContext().getString(R.string.chkbox_Thursday) + ", " : "");
-
-//                        selected_days.append(chkbox_Friday.isChecked() ? getBaseContext().getString(R.string.chkbox_Friday) + ", " : "");
-
-//                        selected_days.append(chkbox_Saturday.isChecked() ? getBaseContext().getString(R.string.chkbox_Saturday) + ", " : "");
-
-//                        selected_days.append(chkbox_Sunday.isChecked() ? getBaseContext().getString(R.string.chkbox_Sunday) : "");
-
                         if (!selected_days.toString().isEmpty()) {
                             if (selected_days.toString().endsWith(", ")) {
                                 _btn_date_course.setHint(selected_days.toString().substring(0, selected_days.length() - 2));
@@ -200,8 +228,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     }
                 });
                 _chose_date_dialog.show();
-                break;
-            case R.id.iv_status_course:
                 break;
             case R.id.btn_start_date_course:
                 _lastSelectedDayOfMonth = cldr.get(Calendar.DAY_OF_MONTH);
@@ -234,5 +260,15 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 _datePickerDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(), _statusColorCourses.get(position).getName(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
