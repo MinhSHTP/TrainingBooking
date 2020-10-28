@@ -154,6 +154,16 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 daysOfThatWeek.add(getString(R.string.chkbox_Saturday));
                 daysOfThatWeek.add(getString(R.string.chkbox_Sunday));
 
+                String btnDateCourseHint = _btn_date_course.getHint().toString();
+                String[] dayOfWeekArrayStrings = btnDateCourseHint == getString(R.string.btn_chose_date_course) ? null : btnDateCourseHint.split(", ");
+                if (dayOfWeekArrayStrings != null) {
+                    for (int i = 0; i < dayOfWeekArrayStrings.length; i++) {
+                        if (daysOfThatWeek.contains(dayOfWeekArrayStrings[i])) {
+                            chkbox_days.get(dayOfWeekArrayStrings[i]).setChecked(true);
+                        }
+                    }
+                }
+
                 btn_confirm_chose_date.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
