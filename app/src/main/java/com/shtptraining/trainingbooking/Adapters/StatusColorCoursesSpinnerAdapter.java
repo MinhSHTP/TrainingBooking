@@ -28,13 +28,16 @@ public class StatusColorCoursesSpinnerAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        view = _inflater.inflate(R.layout.item_spinner_status_color, null);
-        ImageView iv = view.findViewById(R.id.iv_status_course);
-        TextView tv = view.findViewById(R.id.tv_status_name);
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if (convertView == null) {
+            convertView = _inflater.inflate(R.layout.item_spinner_status_color, null);
+        }
+        ImageView iv = convertView.findViewById(R.id.iv_status_course);
+        TextView tv = convertView.findViewById(R.id.tv_status_course);
         iv.setBackgroundColor(Color.parseColor(_statusColorCourses.get(i).getColorString()));
         tv.setText(_statusColorCourses.get(i).getName());
-        return view;
+        return convertView;
+
     }
 //
 //    @Override

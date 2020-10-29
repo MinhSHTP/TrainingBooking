@@ -15,7 +15,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,14 +78,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _spinner_status_course = (Spinner) findViewById(R.id.spinner_status_course);
-        _spinner_status_course.setOnItemSelectedListener(this);
-
-        loadDataStatusColorCourse();
-
-        StatusColorCoursesSpinnerAdapter spinnerAdapter = new StatusColorCoursesSpinnerAdapter(CreateCourseAct.this, _statusColorCourses);
-        _spinner_status_course.setAdapter(spinnerAdapter);
-
     }
 
     @Override
@@ -101,6 +92,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _et_numberOf_course = (EditText) findViewById(R.id.et_numberOf_course);
 
         _spinner_course_trainer = (Spinner) findViewById(R.id.spinner_course_trainer);
+        _spinner_status_course = (Spinner) findViewById(R.id.spinner_status_course);
 
         _btn_time_course = (Button) findViewById(R.id.btn_time_course);
         _btn_date_course = (Button) findViewById(R.id.btn_date_course);
@@ -113,6 +105,11 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 //        _iv_status_course.setOnClickListener(this);
         _btn_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
+
+        _spinner_status_course.setOnItemSelectedListener(this);
+
+        loadDataStatusColorCourse();
+
     }
 
     private void loadDataStatusColorCourse() {
@@ -120,6 +117,9 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onResponse(Call<List<StatusColorCourse>> call, Response<List<StatusColorCourse>> response) {
                 _statusColorCourses = response.body();
+
+                StatusColorCoursesSpinnerAdapter spinnerAdapter = new StatusColorCoursesSpinnerAdapter(CreateCourseAct.this, _statusColorCourses);
+                _spinner_status_course.setAdapter(spinnerAdapter);
 
             }
 
@@ -264,7 +264,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), _statusColorCourses.get(position).getName(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), _statusColorCourses.get(position).getName(), Toast.LENGTH_LONG).show();
     }
 
     @Override
