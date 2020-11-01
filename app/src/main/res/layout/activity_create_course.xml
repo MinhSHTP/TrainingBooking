@@ -110,7 +110,8 @@
 
             <Spinner
                 android:id="@+id/spinner_course_trainer"
-                style="@style/spinner_create_course_act" />
+                style="@style/spinner_create_course_act"
+                android:spinnerMode="dialog" />
         </LinearLayout>
 
         <LinearLayout
@@ -259,6 +260,7 @@
             app:layout_constraintTop_toBottomOf="@+id/status_course_layout">
 
             <Button
+                android:id="@+id/btn_confirm_create_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_btnConfirm"

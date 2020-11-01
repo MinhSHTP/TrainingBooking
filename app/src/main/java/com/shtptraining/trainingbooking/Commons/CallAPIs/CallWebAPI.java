@@ -1,6 +1,7 @@
 package com.shtptraining.trainingbooking.Commons.CallAPIs;
 
 import com.shtptraining.trainingbooking.Commons.Constants;
+import com.shtptraining.trainingbooking.Models.Account;
 import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
@@ -33,6 +34,10 @@ public interface CallWebAPI {
     @FormUrlEncoded
     @POST("Account/POST/AccountLogin.php?")
     Call<MessageFromAPI> Login(@Field("email") String email, @Field("password") String password);
+
+    @GET("Account/GET/GetAllAccounts.php")
+        //0 = Admin role, 1 = Trainer role, 2 = Student role
+    Call<List<Account>> getAllAccounts();
 
     @FormUrlEncoded
     @POST("Course/GET/GetAllCoursesByDate.php")

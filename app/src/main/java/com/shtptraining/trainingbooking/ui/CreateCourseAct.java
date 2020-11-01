@@ -3,12 +3,14 @@ package com.shtptraining.trainingbooking.ui;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -22,6 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesSpinnerAdapter;
 import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
+import com.shtptraining.trainingbooking.Commons.Helpers;
+import com.shtptraining.trainingbooking.Models.Account;
+import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
@@ -46,7 +51,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     public Spinner _spinner_course_trainer;
 
-    public Button _btn_time_course, _btn_date_course, _btn_start_date_course;
+    public Button _btn_time_course, _btn_date_course, _btn_start_date_course, _btn_confirm_create_course;
 
 //    public ImageView _iv_status_course;
 
@@ -97,6 +102,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _btn_time_course = (Button) findViewById(R.id.btn_time_course);
         _btn_date_course = (Button) findViewById(R.id.btn_date_course);
         _btn_start_date_course = (Button) findViewById(R.id.btn_start_date_course);
+        _btn_confirm_create_course = (Button) findViewById(R.id.btn_confirm_create_course);
 
 //        _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
 //        _tv_status_course = (TextView) findViewById(R.id.tv_status_course);
@@ -105,10 +111,38 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 //        _iv_status_course.setOnClickListener(this);
         _btn_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
-
+        _btn_confirm_create_course.setOnClickListener(this);
         _spinner_status_course.setOnItemSelectedListener(this);
 
         loadDataStatusColorCourse();
+
+        loadDataTrainer();
+    }
+
+    private void loadDataTrainer() {
+        _callWebAPI.getAllAccounts().enqueue(new Callback<List<Account>>() {
+            @Override
+            public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                List<Account> accounts = new ArrayList<>();
+                accounts = response.body();
+
+                ArrayList<String> trainerNames = new ArrayList<>();
+                for (int i = 0; i < accounts.size(); i++) {
+                    if (accounts.get(i).getRole().equals("1")) {
+                        trainerNames.add(accounts.get(i).getName());
+                    }
+                }
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CreateCourseAct.this, R.layout.simple_spinner_item, trainerNames);
+                spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+                _spinner_course_trainer.setAdapter(spinnerAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Account>> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
+
 
     }
 
@@ -258,6 +292,36 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
                 // Show
                 _datePickerDialog.show();
+                break;
+            case R.id.btn_confirm_create_course:
+                androidx.appcompat.app.AlertDialog dialog = Helpers.showAlertDialogConfirmInfor(this, "Bạn có chắc muốn tạo khóa học / môn học mới này?", "Tạo khóa học / môn học");
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        _callWebAPI.createCourse(
+                                _et_name_course.getText().toString(),
+                                _et_duration_date_course.getText().toString(),
+
+                                ).enqueue(new Callback<MessageFromAPI>() {
+                            @Override
+                            public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<MessageFromAPI> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 break;
         }
     }
