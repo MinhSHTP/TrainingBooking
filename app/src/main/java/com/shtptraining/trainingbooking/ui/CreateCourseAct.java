@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 import static com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI.retrofit;
 
-public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, View.OnFocusChangeListener {
     private String TAG = "CreateCourseAct";
     public static CallWebAPI _callWebAPI = retrofit.create(CallWebAPI.class);
     public EditText _et_name_course, _et_duration_date_course,
@@ -113,6 +113,11 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _btn_date_course.setOnClickListener(this);
         _btn_confirm_create_course.setOnClickListener(this);
         _spinner_status_course.setOnItemSelectedListener(this);
+
+        _et_duration_date_course.setOnFocusChangeListener(this);
+        _et_duration_time_course.setOnFocusChangeListener(this);
+        _et_duration_course.setOnFocusChangeListener(this);
+        _et_fee_course.setOnFocusChangeListener(this);
 
         loadDataStatusColorCourse();
 
@@ -189,7 +194,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 _timePickerDialog = new TimePickerDialog(CreateCourseAct.this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        _btn_time_course.setText(hourOfDay + ":" + minute);
+                        _btn_time_course.setHint(hourOfDay + ":" + minute);
                         _lastSelectedHour = hourOfDay;
                         _lastSelectedMinutes = minute;
                     }
@@ -278,7 +283,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
                         String monthString = String.valueOf(monthOfYear).length() == 1 ? "0" + (monthOfYear + 1) : String.valueOf(monthOfYear + 1);
 
-                        _btn_date_course.setText(dayString + "-" + monthString + "-" + year);
+                        _btn_start_date_course.setHint(dayString + "-" + monthString + "-" + year);
 
                         _lastSelectedYear = year;
                         _lastSelectedMonth = monthOfYear;
@@ -298,11 +303,21 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Account accountTrainer = (Account) (_spinner_course_trainer.getSelectedItem());
+                        StatusColorCourse statusCourse = (StatusColorCourse) (_spinner_status_course.getSelectedItem());
                         _callWebAPI.createCourse(
                                 _et_name_course.getText().toString(),
                                 _et_duration_date_course.getText().toString(),
-
-                                ).enqueue(new Callback<MessageFromAPI>() {
+                                _et_duration_time_course.getText().toString(),
+                                _et_duration_course.getText().toString(),
+                                _btn_time_course.getHint().toString(),
+                                _btn_date_course.getHint().toString(),
+                                _btn_start_date_course.getHint().toString(),
+                                accountTrainer.getEmail(),
+                                _et_fee_course.getText().toString(),
+                                Integer.parseInt(statusCourse.getCode()),
+                                Integer.parseInt(_et_numberOf_course.getText().toString())
+                        ).enqueue(new Callback<MessageFromAPI>() {
                             @Override
                             public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
 
@@ -334,5 +349,40 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+            switch (v.getId()) {
+                case R.id.et_duration_date_course:
+                    _et_duration_date_course.setText(_et_duration_date_course.getText().length() == 1 ? "0" + _et_duration_date_course.getText() : _et_duration_date_course.getText() + " tháng");
+                    break;
+                case R.id.et_duration_time_course:
+                    _et_duration_time_course.setText(_et_duration_time_course.getText().length() == 1 ? "0" + _et_duration_time_course.getText() : _et_duration_time_course.getText() + " tiếng / buổi");
+                    break;
+                case R.id.et_duration_course:
+                    _et_duration_course.setText(_et_duration_course.getText().length() == 1 ? "0" + _et_duration_course.getText() : _et_duration_course.getText() + " buổi / tuần");
+                    break;
+                case R.id.et_fee_course:
+                    _et_fee_course.setText(_et_fee_course.getText() + " VNĐ");
+                    break;
+            }
+        } else {
+            switch (v.getId()) {
+                case R.id.et_duration_date_course:
+                    _et_duration_date_course.setText(_et_duration_date_course.getText().toString().split(" tháng").toString());
+                    break;
+                case R.id.et_duration_time_course:
+                    _et_duration_time_course.setText(_et_duration_time_course.getText().toString().split(" tiếng / buổi").toString());
+                    break;
+                case R.id.et_duration_course:
+                    _et_duration_course.setText(_et_duration_course.getText().toString().split(" buổi / tuần").toString());
+                    break;
+                case R.id.et_fee_course:
+                    _et_fee_course.setText(_et_fee_course.getText().toString().split(" VNĐ").toString());
+                    break;
+            }
+        }
     }
 }
