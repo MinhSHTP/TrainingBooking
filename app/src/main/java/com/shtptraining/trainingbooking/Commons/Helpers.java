@@ -14,7 +14,12 @@ import com.google.common.base.Predicate;
 import com.shtptraining.trainingbooking.Commons.MappingAddress.QuanHuyenPhuongXa;
 import com.shtptraining.trainingbooking.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class Helpers {
     public static AlertDialog _dialog;
@@ -92,5 +97,20 @@ public class Helpers {
         if (_dialog != null) {
             _dialog.dismiss();
         }
+    }
+
+    public static String toDDMMYYY(String dateString) {
+        DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        Date date = null;
+        try {
+            date = inputFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String outputText = outputFormat.format(date);
+        return outputText;
     }
 }

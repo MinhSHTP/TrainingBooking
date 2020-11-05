@@ -4,6 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Course {
+    @SerializedName("ID")
+    @Expose
+    private Integer Id;
+
     @SerializedName("NAME")
     @Expose
     private String Name;
@@ -158,5 +162,13 @@ public class Course {
 
     public void setStatusColor(String statusColor) {
         StatusColor = statusColor;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
     }
 }

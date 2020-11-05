@@ -44,6 +44,11 @@ public interface CallWebAPI {
         //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCoursesByDate(@Field("startDate") String startDate);
 
+    @FormUrlEncoded
+    @POST("Course/GET/GetAllCoursesByID.php")
+        //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
+    Call<List<Course>> getAllCoursesByID(@Field("ID") Integer ID);
+
     @GET("Course/GET/GetAllCoursesWithStatusColor.php")
         //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCourses();

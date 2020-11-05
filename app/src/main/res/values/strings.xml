@@ -56,6 +56,8 @@
     <string name="tv_course_detail">Chi tiết</string>
     <string name="title_edit_course">Danh sách các khóa học</string>
     <string name="lb_edit_course_act">Khóa học / Môn học</string>
+
+    <string name="btn_detail">Xem</string>
     <!--endregion-->
 
     <!--region Strings of CreateCourseAct-->
