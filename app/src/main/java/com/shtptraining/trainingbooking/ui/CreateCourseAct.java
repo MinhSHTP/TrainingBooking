@@ -75,7 +75,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     private int _lastSelectedHour;
     private int _lastSelectedMinutes;
 
-    List<StatusColorCourse> _statusColorCourses = new ArrayList<StatusColorCourse>();
+    List<StatusColorCourse> _statusColorCourses = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,20 +90,20 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        _et_name_course = (EditText) findViewById(R.id.et_name_course);
-        _et_duration_date_course = (EditText) findViewById(R.id.et_duration_date_course);
-        _et_duration_course = (EditText) findViewById(R.id.et_duration_course);
-        _et_duration_time_course = (EditText) findViewById(R.id.et_duration_time_course);
-        _et_fee_course = (EditText) findViewById(R.id.et_fee_course);
-        _et_numberOf_course = (EditText) findViewById(R.id.et_numberOf_course);
+        _et_name_course = findViewById(R.id.et_name_course);
+        _et_duration_date_course = findViewById(R.id.et_duration_date_course);
+        _et_duration_course = findViewById(R.id.et_duration_course);
+        _et_duration_time_course = findViewById(R.id.et_duration_time_course);
+        _et_fee_course = findViewById(R.id.et_fee_course);
+        _et_numberOf_course = findViewById(R.id.et_numberOf_course);
 
-        _spinner_course_trainer = (Spinner) findViewById(R.id.spinner_course_trainer);
-        _spinner_status_course = (Spinner) findViewById(R.id.spinner_status_course);
+        _spinner_course_trainer = findViewById(R.id.spinner_course_trainer);
+        _spinner_status_course = findViewById(R.id.spinner_status_course);
 
-        _btn_time_course = (Button) findViewById(R.id.btn_time_course);
-        _btn_date_course = (Button) findViewById(R.id.btn_date_course);
-        _btn_start_date_course = (Button) findViewById(R.id.btn_start_date_course);
-        _btn_confirm_create_course = (Button) findViewById(R.id.btn_confirm_create_course);
+        _btn_time_course = findViewById(R.id.btn_time_course);
+        _btn_date_course = findViewById(R.id.btn_date_course);
+        _btn_start_date_course = findViewById(R.id.btn_start_date_course);
+        _btn_confirm_create_course = findViewById(R.id.btn_confirm_create_course);
 
 //        _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
 //        _tv_status_course = (TextView) findViewById(R.id.tv_status_course);
@@ -208,15 +208,15 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 _chose_date_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 _chose_date_dialog.setContentView(R.layout.custom_chose_date_dialog);
 
-                Button btn_confirm_chose_date = (Button) _chose_date_dialog.findViewById(R.id.btn_confirm_chose_date);
+                Button btn_confirm_chose_date = _chose_date_dialog.findViewById(R.id.btn_confirm_chose_date);
 
-                CheckBox chkbox_Monday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Monday);
-                CheckBox chkbox_Tuesday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Tuesday);
-                CheckBox chkbox_Wednesday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Wednesday);
-                CheckBox chkbox_Thursday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Thursday);
-                CheckBox chkbox_Friday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Friday);
-                CheckBox chkbox_Saturday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Saturday);
-                CheckBox chkbox_Sunday = (CheckBox) _chose_date_dialog.findViewById(R.id.chkbox_Sunday);
+                CheckBox chkbox_Monday = _chose_date_dialog.findViewById(R.id.chkbox_Monday);
+                CheckBox chkbox_Tuesday = _chose_date_dialog.findViewById(R.id.chkbox_Tuesday);
+                CheckBox chkbox_Wednesday = _chose_date_dialog.findViewById(R.id.chkbox_Wednesday);
+                CheckBox chkbox_Thursday = _chose_date_dialog.findViewById(R.id.chkbox_Thursday);
+                CheckBox chkbox_Friday = _chose_date_dialog.findViewById(R.id.chkbox_Friday);
+                CheckBox chkbox_Saturday = _chose_date_dialog.findViewById(R.id.chkbox_Saturday);
+                CheckBox chkbox_Sunday = _chose_date_dialog.findViewById(R.id.chkbox_Sunday);
 
                 Dictionary<String, CheckBox> chkbox_days = new Hashtable<>();
                 chkbox_days.put(getBaseContext().getString(R.string.chkbox_Monday), chkbox_Monday);
@@ -360,32 +360,38 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 case R.id.et_duration_date_course:
                     if (_et_duration_date_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_date_course.getText().toString()) >= 1) {
                         _et_duration_date_course.setText("0" + _et_duration_date_course.getText().toString() + " tháng");
-                    } else {
+                    } else if (_et_duration_date_course.getText().toString().length() > 1 && Integer.parseInt(_et_duration_date_course.getText().toString()) >= 1) {
                         _et_duration_date_course.setText(_et_duration_date_course.getText().toString() + " tháng");
+                    } else {
+                        _et_duration_date_course.setText("");
                     }
                     break;
                 case R.id.et_duration_time_course:
                     if (_et_duration_time_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_time_course.getText().toString()) >= 1) {
                         _et_duration_time_course.setText("0" + _et_duration_time_course.getText().toString() + " tiếng / buổi");
-                    } else {
+                    } else if (_et_duration_time_course.getText().toString().length() > 1 && Integer.parseInt(_et_duration_time_course.getText().toString()) >= 1) {
                         _et_duration_time_course.setText(_et_duration_time_course.getText().toString() + " tiếng / buổi");
+                    } else {
+                        _et_duration_time_course.setText("");
                     }
                     break;
                 case R.id.et_duration_course:
                     if (_et_duration_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_course.getText().toString()) >= 1) {
                         _et_duration_course.setText("0" + _et_duration_course.getText().toString() + " buổi / tuần");
-                    } else {
+                    } else if (_et_duration_course.getText().toString().length() > 1 && Integer.parseInt(_et_duration_course.getText().toString()) >= 1) {
                         _et_duration_course.setText(_et_duration_course.getText().toString() + " buổi / tuần");
+                    } else {
+                        _et_duration_course.setText("");
                     }
                     break;
                 case R.id.et_fee_course:
                     DecimalFormat formatter = new DecimalFormat("###,###,###");
-                    String formattedNumber = formatter.format(Integer.parseInt(_et_fee_course.getText().toString()));
-                    //if (!_et_fee_course.getText().toString().isEmpty() && Integer.parseInt(_et_fee_course.getText().toString()) >= 1) {
-                    _et_fee_course.setText(formattedNumber + " VNĐ");
-                    //} else {
-                    //    _et_fee_course.setText(formattedNumber);
-                    //}
+                    if (!_et_fee_course.getText().toString().isEmpty() && Integer.parseInt(_et_fee_course.getText().toString()) >= 1) {
+                        String formattedNumber = formatter.format(Integer.parseInt(_et_fee_course.getText().toString()));
+                        _et_fee_course.setText(formattedNumber + " VNĐ");
+                    } else {
+                        _et_fee_course.setText("");
+                    }
                     break;
             }
         } else {
@@ -408,9 +414,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.et_fee_course:
                     if (!_et_fee_course.getText().toString().isEmpty()) {
-//                        DecimalFormat formatter = new DecimalFormat("###");
-//                        String formattedNumber = formatter.format(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0]));
-                        Log.d(TAG, String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0].replace(".", ""))));
                         _et_fee_course.setText(String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0].replace(".", ""))));
                     }
                     break;
