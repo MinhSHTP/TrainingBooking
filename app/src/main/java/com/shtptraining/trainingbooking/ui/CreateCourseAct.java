@@ -77,6 +77,8 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     List<StatusColorCourse> _statusColorCourses = new ArrayList<>();
 
+    List<String> _selectedDates = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,21 +252,31 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onClick(View v) {
                         StringBuilder selected_days = new StringBuilder();
-
+                        _selectedDates.clear();
                         for (int i = 0; i < daysOfThatWeek.size(); i++) {
                             if (chkbox_days.get(daysOfThatWeek.get(i)).isChecked()) {
                                 selected_days.append(daysOfThatWeek.get(i) + ", ");
+                                _selectedDates.add(daysOfThatWeek.get(i));
                             }
                         }
 
                         if (!selected_days.toString().isEmpty()) {
                             if (selected_days.toString().endsWith(", ")) {
                                 _btn_date_course.setHint(selected_days.toString().substring(0, selected_days.length() - 2));
+
                             } else {
                                 _btn_date_course.setHint(selected_days.toString());
                             }
-                            _chose_date_dialog.hide();
+                        } else {
+                            _btn_date_course.setHint(getString(R.string.btn_chose_date_course));
                         }
+
+                        if (_selectedDates.size() > 0) {
+                            _et_duration_course.setText("0" + _selectedDates.size() + " buổi / tuần");
+                        } else {
+                            _et_duration_course.setText("");
+                        }
+                        _chose_date_dialog.hide();
                     }
                 });
                 _chose_date_dialog.show();
