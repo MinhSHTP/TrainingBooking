@@ -54,9 +54,8 @@
             <EditText
                 android:id="@+id/et_duration_date_course"
                 style="@style/et_create_course_act"
-                android:inputType="numberDecimal"
-                android:hint="@string/txt_month"
-                android:selectAllOnFocus="true" />
+                android:inputType="number"
+                android:hint="@string/txt_month" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,9 +74,8 @@
             <EditText
                 android:id="@+id/et_duration_course"
                 style="@style/et_create_course_act"
-                android:inputType="numberDecimal"
-                android:hint="@string/txt_times"
-                android:selectAllOnFocus="true" />
+                android:inputType="number"
+                android:hint="@string/txt_times" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,9 +94,8 @@
             <EditText
                 android:id="@+id/et_duration_time_course"
                 style="@style/et_create_course_act"
-                android:inputType="numberDecimal"
-                android:hint="@string/txt_hours"
-                android:selectAllOnFocus="true" />
+                android:inputType="number"
+                android:hint="@string/txt_hours" />
         </LinearLayout>
 
         <LinearLayout
@@ -198,8 +195,7 @@
                 android:id="@+id/et_fee_course"
                 style="@style/et_create_course_act"
                 android:inputType="number"
-                android:hint="VNĐ"
-                android:selectAllOnFocus="true" />
+                android:hint="VNĐ" />
         </LinearLayout>
 
         <LinearLayout
@@ -218,7 +214,7 @@
             <EditText
                 android:id="@+id/et_numberOf_course"
                 style="@style/et_create_course_act"
-                android:inputType="numberDecimal" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout

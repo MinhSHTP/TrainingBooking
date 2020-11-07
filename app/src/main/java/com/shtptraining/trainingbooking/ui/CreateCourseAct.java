@@ -408,7 +408,10 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     break;
                 case R.id.et_fee_course:
                     if (!_et_fee_course.getText().toString().isEmpty()) {
-                        _et_fee_course.setText(String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0])));
+//                        DecimalFormat formatter = new DecimalFormat("###");
+//                        String formattedNumber = formatter.format(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0]));
+                        Log.d(TAG, String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0].replace(".", ""))));
+                        _et_fee_course.setText(String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0].replace(".", ""))));
                     }
                     break;
             }
