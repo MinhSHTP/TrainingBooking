@@ -84,6 +84,11 @@
     <string name="chkbox_Friday">Thứ 6</string>
     <string name="chkbox_Saturday">Thứ 7</string>
     <string name="chkbox_Sunday">Chủ nhật</string>
+
+    <string name="txt_month"> tháng</string>
+    <string name="txt_times"> buổi / tuần</string>
+    <string name="txt_hours"> tiếng / buổi</string>
+
     <!--endregion-->
 
 

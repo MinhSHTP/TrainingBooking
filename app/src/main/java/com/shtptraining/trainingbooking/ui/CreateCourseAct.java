@@ -30,6 +30,7 @@ import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Dictionary;
@@ -320,12 +321,12 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                         ).enqueue(new Callback<MessageFromAPI>() {
                             @Override
                             public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-
+                                Log.e(TAG, String.valueOf(response.body()));
                             }
 
                             @Override
                             public void onFailure(Call<MessageFromAPI> call, Throwable t) {
-
+                                Log.e(TAG, t.getMessage());
                             }
                         });
                     }
@@ -354,33 +355,61 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
+            //Focus out
             switch (v.getId()) {
                 case R.id.et_duration_date_course:
-                    _et_duration_date_course.setText(_et_duration_date_course.getText().length() == 1 ? "0" + _et_duration_date_course.getText() : _et_duration_date_course.getText() + " tháng");
+                    if (_et_duration_date_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_date_course.getText().toString()) >= 1) {
+                        _et_duration_date_course.setText("0" + _et_duration_date_course.getText().toString() + " tháng");
+                    } else {
+                        _et_duration_date_course.setText(_et_duration_date_course.getText().toString() + " tháng");
+                    }
                     break;
                 case R.id.et_duration_time_course:
-                    _et_duration_time_course.setText(_et_duration_time_course.getText().length() == 1 ? "0" + _et_duration_time_course.getText() : _et_duration_time_course.getText() + " tiếng / buổi");
+                    if (_et_duration_time_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_time_course.getText().toString()) >= 1) {
+                        _et_duration_time_course.setText("0" + _et_duration_time_course.getText().toString() + " tiếng / buổi");
+                    } else {
+                        _et_duration_time_course.setText(_et_duration_time_course.getText().toString() + " tiếng / buổi");
+                    }
                     break;
                 case R.id.et_duration_course:
-                    _et_duration_course.setText(_et_duration_course.getText().length() == 1 ? "0" + _et_duration_course.getText() : _et_duration_course.getText() + " buổi / tuần");
+                    if (_et_duration_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_course.getText().toString()) >= 1) {
+                        _et_duration_course.setText("0" + _et_duration_course.getText().toString() + " buổi / tuần");
+                    } else {
+                        _et_duration_course.setText(_et_duration_course.getText().toString() + " buổi / tuần");
+                    }
                     break;
                 case R.id.et_fee_course:
-                    _et_fee_course.setText(_et_fee_course.getText() + " VNĐ");
+                    DecimalFormat formatter = new DecimalFormat("###,###,###");
+                    String formattedNumber = formatter.format(Integer.parseInt(_et_fee_course.getText().toString()));
+                    //if (!_et_fee_course.getText().toString().isEmpty() && Integer.parseInt(_et_fee_course.getText().toString()) >= 1) {
+                    _et_fee_course.setText(formattedNumber + " VNĐ");
+                    //} else {
+                    //    _et_fee_course.setText(formattedNumber);
+                    //}
                     break;
             }
         } else {
+            //Focus in
             switch (v.getId()) {
                 case R.id.et_duration_date_course:
-                    _et_duration_date_course.setText(_et_duration_date_course.getText().toString().split(" tháng").toString());
+                    if (!_et_duration_date_course.getText().toString().isEmpty()) {
+                        _et_duration_date_course.setText(String.valueOf(Integer.parseInt(_et_duration_date_course.getText().toString().split(" tháng")[0])));
+                    }
                     break;
                 case R.id.et_duration_time_course:
-                    _et_duration_time_course.setText(_et_duration_time_course.getText().toString().split(" tiếng / buổi").toString());
+                    if (!_et_duration_time_course.getText().toString().isEmpty()) {
+                        _et_duration_time_course.setText(String.valueOf(Integer.parseInt(_et_duration_time_course.getText().toString().split(" tiếng / buổi")[0])));
+                    }
                     break;
                 case R.id.et_duration_course:
-                    _et_duration_course.setText(_et_duration_course.getText().toString().split(" buổi / tuần").toString());
+                    if (!_et_duration_course.getText().toString().isEmpty()) {
+                        _et_duration_course.setText(String.valueOf(Integer.parseInt(_et_duration_course.getText().toString().split(" buổi / tuần")[0])));
+                    }
                     break;
                 case R.id.et_fee_course:
-                    _et_fee_course.setText(_et_fee_course.getText().toString().split(" VNĐ").toString());
+                    if (!_et_fee_course.getText().toString().isEmpty()) {
+                        _et_fee_course.setText(String.valueOf(Integer.parseInt(_et_fee_course.getText().toString().split(" VNĐ")[0])));
+                    }
                     break;
             }
         }

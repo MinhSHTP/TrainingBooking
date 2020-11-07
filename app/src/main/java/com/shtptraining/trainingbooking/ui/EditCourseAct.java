@@ -128,7 +128,6 @@ public class EditCourseAct extends AppCompatActivity {
                         }
                     });
 
-
                     TextView tvCourseName = new TextView(EditCourseAct.this);
                     tvCourseName.setText(_courses.get(i).getName());
                     tvCourseName.setGravity(Gravity.CENTER);
@@ -150,7 +149,6 @@ public class EditCourseAct extends AppCompatActivity {
                     tr.addView(tvStartDate);
 
                     _tbl_layout_course.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-
                 }
             }
 
