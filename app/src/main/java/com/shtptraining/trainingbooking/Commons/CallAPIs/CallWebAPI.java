@@ -31,17 +31,22 @@ public interface CallWebAPI {
             .client(okHttpClient)
             .build();
 
+    //0 = Admin role, 1 = Trainer role, 2 = Student role
     @FormUrlEncoded
     @POST("Account/POST/AccountLogin.php?")
     Call<MessageFromAPI> Login(@Field("email") String email, @Field("password") String password);
 
     @GET("Account/GET/GetAllAccounts.php")
-        //0 = Admin role, 1 = Trainer role, 2 = Student role
     Call<List<Account>> getAllAccounts();
 
     @FormUrlEncoded
+    @POST("Account/GET/GetAccountByName.php")
+    Call<List<Account>> getAccountByName(@Field("name") String name);
+
+    //=================================================================================================
+    @FormUrlEncoded
     @POST("Course/GET/GetAllCoursesByDate.php")
-        //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
+    //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCoursesByDate(@Field("startDate") String startDate);
 
     @FormUrlEncoded
@@ -62,5 +67,5 @@ public interface CallWebAPI {
             @Field("name") String name, @Field("duration_date") String duration_date, @Field("duration_time") String duration_time,
             @Field("duration") String duration, @Field("time") String time, @Field("date") String date,
             @Field("start_date") String start_date, @Field("trainer") String trainer, @Field("fee") String fee,
-            @Field("status") int status, @Field("numberof") int numberof);
+            @Field("status") String status, @Field("numberof") String numberof);
 }

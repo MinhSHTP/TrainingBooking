@@ -17,9 +17,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesSpinnerAdapter;
@@ -43,7 +45,7 @@ import retrofit2.Response;
 
 import static com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI.retrofit;
 
-public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, View.OnFocusChangeListener {
+public class CreateCourseAct extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
     private String TAG = "CreateCourseAct";
     public static CallWebAPI _callWebAPI = retrofit.create(CallWebAPI.class);
     public EditText _et_name_course, _et_duration_date_course,
@@ -52,7 +54,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     public Spinner _spinner_course_trainer;
 
-    public Button _btn_time_course, _btn_date_course, _btn_start_date_course, _btn_confirm_create_course;
+    public Button _btn_start_time_course, _btn_end_time_course, _btn_date_course, _btn_start_date_course, _btn_confirm_create_course;
 
 //    public ImageView _iv_status_course;
 
@@ -72,12 +74,21 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
     private int _lastSelectedDayOfWeek;
 
-    private int _lastSelectedHour;
-    private int _lastSelectedMinutes;
+    private int _lastSelectedHourStart;
+    private int _lastSelectedMinutesStart;
+
+    private int _lastSelectedHourEnd;
+    private int _lastSelectedMinutesEnd;
+
+    private int _selectedStatusCode = 0;
+    private String _selectedTrainerName = "";
+    private String _selectedTrainerEmail = "";
 
     List<StatusColorCourse> _statusColorCourses = new ArrayList<>();
 
     List<String> _selectedDates = new ArrayList<>();
+
+    //int MAX_SELECTED_DATES = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,7 +113,8 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _spinner_course_trainer = findViewById(R.id.spinner_course_trainer);
         _spinner_status_course = findViewById(R.id.spinner_status_course);
 
-        _btn_time_course = findViewById(R.id.btn_time_course);
+        _btn_start_time_course = findViewById(R.id.btn_start_time_course);
+        _btn_end_time_course = findViewById(R.id.btn_end_time_course);
         _btn_date_course = findViewById(R.id.btn_date_course);
         _btn_start_date_course = findViewById(R.id.btn_start_date_course);
         _btn_confirm_create_course = findViewById(R.id.btn_confirm_create_course);
@@ -112,10 +124,15 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
 
         _btn_start_date_course.setOnClickListener(this);
 //        _iv_status_course.setOnClickListener(this);
-        _btn_time_course.setOnClickListener(this);
+        _btn_start_time_course.setOnClickListener(this);
+        _btn_end_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
         _btn_confirm_create_course.setOnClickListener(this);
-        _spinner_status_course.setOnItemSelectedListener(this);
+//        _spinner_course_trainer.setOnItemSelectedListener(this);
+
+
+//        _spinner_status_course.setOnItemSelectedListener(this);
+
 
         _et_duration_date_course.setOnFocusChangeListener(this);
         _et_duration_time_course.setOnFocusChangeListener(this);
@@ -135,6 +152,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 accounts = response.body();
 
                 ArrayList<String> trainerNames = new ArrayList<>();
+                trainerNames.add("Chọn Giảng viên");
                 for (int i = 0; i < accounts.size(); i++) {
                     if (accounts.get(i).getRole().equals("1")) {
                         trainerNames.add(accounts.get(i).getName());
@@ -143,6 +161,19 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CreateCourseAct.this, R.layout.simple_spinner_item, trainerNames);
                 spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 _spinner_course_trainer.setAdapter(spinnerAdapter);
+                _spinner_course_trainer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if (position > 0) {
+                            _selectedTrainerName = _spinner_course_trainer.getSelectedItem().toString();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -159,10 +190,24 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onResponse(Call<List<StatusColorCourse>> call, Response<List<StatusColorCourse>> response) {
                 _statusColorCourses = response.body();
-
+                StatusColorCourse statusColorCourseNull = new StatusColorCourse();
+                statusColorCourseNull.setName("Chọn trạng thái");
+                _statusColorCourses.add(0, statusColorCourseNull);
                 StatusColorCoursesSpinnerAdapter spinnerAdapter = new StatusColorCoursesSpinnerAdapter(CreateCourseAct.this, _statusColorCourses);
                 _spinner_status_course.setAdapter(spinnerAdapter);
+                _spinner_status_course.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if (position > 0) {
+                            _selectedStatusCode = Integer.parseInt(_statusColorCourses.get(position).getCode());
+                        }
+                    }
 
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -191,17 +236,37 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         final Calendar cldr = Calendar.getInstance();
         switch (v.getId()) {
-            case R.id.btn_time_course:
-                _lastSelectedHour = cldr.get(Calendar.HOUR_OF_DAY);
-                _lastSelectedMinutes = cldr.get(Calendar.MINUTE);
+            case R.id.btn_start_time_course:
+                _lastSelectedHourStart = cldr.get(Calendar.HOUR_OF_DAY);
+                _lastSelectedMinutesStart = cldr.get(Calendar.MINUTE);
                 _timePickerDialog = new TimePickerDialog(CreateCourseAct.this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        _btn_time_course.setHint(hourOfDay + ":" + minute);
-                        _lastSelectedHour = hourOfDay;
-                        _lastSelectedMinutes = minute;
+                        String hourOfDayString = String.valueOf(hourOfDay).length() == 1 ? "0" + hourOfDay : String.valueOf(hourOfDay);
+                        String minuteString = String.valueOf(minute).length() == 1 ? "0" + minute : String.valueOf(minute);
+                        String timeStartString = hourOfDayString + ":" + minuteString;
+                        _btn_start_time_course.setHint(timeStartString);
+                        _lastSelectedHourStart = hourOfDay;
+                        _lastSelectedMinutesStart = minute;
                     }
-                }, _lastSelectedHour, _lastSelectedMinutes, true);
+                }, _lastSelectedHourStart, _lastSelectedMinutesStart, true);
+                _timePickerDialog.show();
+
+                break;
+            case R.id.btn_end_time_course:
+                _lastSelectedHourEnd = cldr.get(Calendar.HOUR_OF_DAY);
+                _lastSelectedMinutesEnd = cldr.get(Calendar.MINUTE);
+                _timePickerDialog = new TimePickerDialog(CreateCourseAct.this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String hourOfDayString = String.valueOf(hourOfDay).length() == 1 ? "0" + hourOfDay : String.valueOf(hourOfDay);
+                        String minuteString = String.valueOf(minute).length() == 1 ? "0" + minute : String.valueOf(minute);
+                        String timeEndString = hourOfDayString + ":" + minuteString;
+                        _btn_end_time_course.setHint(timeEndString);
+                        _lastSelectedHourEnd = hourOfDay;
+                        _lastSelectedMinutesEnd = minute;
+                    }
+                }, _lastSelectedHourEnd, _lastSelectedMinutesEnd, true);
                 _timePickerDialog.show();
 
                 break;
@@ -312,57 +377,142 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 _datePickerDialog.show();
                 break;
             case R.id.btn_confirm_create_course:
-                androidx.appcompat.app.AlertDialog dialog = Helpers.showAlertDialogConfirmInfor(this, "Bạn có chắc muốn tạo khóa học / môn học mới này?", "Tạo khóa học / môn học");
-                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Đồng ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Account accountTrainer = (Account) (_spinner_course_trainer.getSelectedItem());
-                        StatusColorCourse statusCourse = (StatusColorCourse) (_spinner_status_course.getSelectedItem());
-                        _callWebAPI.createCourse(
-                                _et_name_course.getText().toString(),
-                                _et_duration_date_course.getText().toString(),
-                                _et_duration_time_course.getText().toString(),
-                                _et_duration_course.getText().toString(),
-                                _btn_time_course.getHint().toString(),
-                                _btn_date_course.getHint().toString(),
-                                _btn_start_date_course.getHint().toString(),
-                                accountTrainer.getEmail(),
-                                _et_fee_course.getText().toString(),
-                                Integer.parseInt(statusCourse.getCode()),
-                                Integer.parseInt(_et_numberOf_course.getText().toString())
-                        ).enqueue(new Callback<MessageFromAPI>() {
-                            @Override
-                            public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-                                Log.e(TAG, String.valueOf(response.body()));
-                            }
-
-                            @Override
-                            public void onFailure(Call<MessageFromAPI> call, Throwable t) {
-                                Log.e(TAG, t.getMessage());
-                            }
-                        });
-                    }
-                });
-
-                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Không", new DialogInterface.OnClickListener() {
+                androidx.appcompat.app.AlertDialog.Builder builder = Helpers.showAlertDialogConfirmInfor(this, "Bạn có chắc muốn tạo khóa học / môn học mới này?", "Tạo khóa học / môn học");
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (validateForm()) {
+                            _callWebAPI.getAccountByName(_selectedTrainerName).enqueue(new Callback<List<Account>>() {
+                                @Override
+                                public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                                    _selectedTrainerEmail = response.body().get(0).getEmail();
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<Account>> call, Throwable t) {
+                                    Log.e(TAG, t.getMessage());
+                                }
+                            });
+
+                            String timeString = _btn_start_time_course.getHint() + " - " + _btn_end_time_course.getHint();
+
+                            _callWebAPI.createCourse(
+                                    _et_name_course.getText().toString(),
+                                    _et_duration_date_course.getText().toString(),
+                                    _et_duration_time_course.getText().toString(),
+                                    _et_duration_course.getText().toString(),
+                                    timeString,
+                                    _btn_date_course.getHint().toString(),
+                                    _btn_start_date_course.getHint().toString(),
+                                    _selectedTrainerEmail,
+                                    _et_fee_course.getText().toString(),
+                                    String.valueOf(_selectedStatusCode),
+                                    String.valueOf(Integer.parseInt(_et_numberOf_course.getText().toString()))
+                            ).enqueue(new Callback<MessageFromAPI>() {
+                                @Override
+                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
+                                    Log.e(TAG, String.valueOf(response.body()));
+                                }
+
+                                @Override
+                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
+                                    Log.e(TAG, t.getMessage());
+                                }
+                            });
+                        }
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Toast.makeText(getApplicationContext(), _statusColorCourses.get(position).getName(), Toast.LENGTH_LONG).show();
+    private boolean validateForm() {
+        if (_et_name_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập tên khóa học / môn học", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_duration_date_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Thời gian học", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_duration_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Số buổi học", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_duration_time_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Số giờ học", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_btn_start_time_course.getHint().toString().equals(getString(R.string.btn_chose_time_course))) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Giờ bắt đầu", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_btn_end_time_course.getHint().toString().equals(getString(R.string.btn_chose_time_course))) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Giờ kết thúc", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_btn_date_course.getHint().toString().equals(getString(R.string.btn_chose_date_course))) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Ngày học trong tuần", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_btn_start_date_course.getHint().toString().equals(getString(R.string.btn_chose_start_date_course))) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Ngày khai giảng", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_fee_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Học phí", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_numberOf_course.getText().toString().isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng nhập Số lượng tuyển sinh", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_selectedTrainerName.isEmpty()) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng chọn Giảng viên", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_selectedStatusCode == 0) {
+            Helpers.showToast(CreateCourseAct.this, "Vui lòng chọn Trạng thái môn học", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        switch (view.getId()) {
+//            case R.id.spinner_course_trainer:
+//                _selectedTrainerName = _spinner_course_trainer.getSelectedItem().toString();
+//                break;
+//            case R.id.spinner_status_course:
+//                _selectedStatusCode = Integer.parseInt(_statusColorCourses.get(position).getCode());
+//                break;
+//        }
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
@@ -382,19 +532,36 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     if (_et_duration_time_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_time_course.getText().toString()) >= 1) {
                         _et_duration_time_course.setText("0" + _et_duration_time_course.getText().toString() + " tiếng / buổi");
                     } else if (_et_duration_time_course.getText().toString().length() > 1 && Integer.parseInt(_et_duration_time_course.getText().toString()) >= 1) {
-                        _et_duration_time_course.setText(_et_duration_time_course.getText().toString() + " tiếng / buổi");
+                        if (Integer.parseInt(_et_duration_time_course.getText().toString()) > 24) {
+                            Helpers.showToast(CreateCourseAct.this, "Số giờ học không quá 24 tiếng / buổi", Toast.LENGTH_SHORT);
+                            _et_duration_time_course.setText("");
+                        } else {
+                            _et_duration_time_course.setText(_et_duration_time_course.getText().toString() + " tiếng / buổi");
+                        }
                     } else {
                         _et_duration_time_course.setText("");
                     }
+
                     break;
                 case R.id.et_duration_course:
                     if (_et_duration_course.getText().toString().length() == 1 && Integer.parseInt(_et_duration_course.getText().toString()) >= 1) {
-                        _et_duration_course.setText("0" + _et_duration_course.getText().toString() + " buổi / tuần");
+                        if (Integer.parseInt(_et_duration_course.getText().toString()) > 7) {
+                            Helpers.showToast(CreateCourseAct.this, "Số buổi không được quá 7 buổi / tuần", Toast.LENGTH_SHORT);
+                            _et_duration_course.setText("");
+                        } else {
+                            _et_duration_course.setText("0" + _et_duration_course.getText().toString() + " buổi / tuần");
+                        }
                     } else if (_et_duration_course.getText().toString().length() > 1 && Integer.parseInt(_et_duration_course.getText().toString()) >= 1) {
-                        _et_duration_course.setText(_et_duration_course.getText().toString() + " buổi / tuần");
+                        if (Integer.parseInt(_et_duration_course.getText().toString()) > 7) {
+                            Helpers.showToast(CreateCourseAct.this, "Số buổi không được quá 7 buổi / tuần", Toast.LENGTH_SHORT);
+                            _et_duration_course.setText("");
+                        } else {
+                            _et_duration_course.setText(_et_duration_course.getText().toString() + " buổi / tuần");
+                        }
                     } else {
                         _et_duration_course.setText("");
                     }
+
                     break;
                 case R.id.et_fee_course:
                     DecimalFormat formatter = new DecimalFormat("###,###,###");

@@ -70,14 +70,12 @@ public class Helpers {
         dialog.show();
     }
 
-    public static AlertDialog showAlertDialogConfirmInfor(Context context, String message, String title) {
+    public static AlertDialog.Builder showAlertDialogConfirmInfor(Context context, String message, String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setTitle(title);
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        return dialog;
+        return builder;
     }
 
     public static void showLoadingDialog(Context context, String content) {

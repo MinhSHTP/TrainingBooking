@@ -124,7 +124,7 @@ public class EditCourseAct extends AppCompatActivity {
                     tr.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            loadDataCoursesByID(_courses.get(finalI).getId());
+                            //loadDataCoursesByID(_courses.get(finalI).getId());
                         }
                     });
 

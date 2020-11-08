@@ -34,7 +34,10 @@ public class StatusColorCoursesSpinnerAdapter extends BaseAdapter {
         }
         ImageView iv = convertView.findViewById(R.id.iv_status_course);
         TextView tv = convertView.findViewById(R.id.tv_status_course);
-        iv.setBackgroundColor(Color.parseColor(_statusColorCourses.get(i).getColorString()));
+
+        if (i > 0) {
+            iv.setBackgroundColor(Color.parseColor(_statusColorCourses.get(i).getColorString()));
+        }
         tv.setText(_statusColorCourses.get(i).getName());
         return convertView;
 
