@@ -111,4 +111,19 @@ public class Helpers {
         String outputText = outputFormat.format(date);
         return outputText;
     }
+
+    public static String toYYYYMMDD(String dateString) {
+        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        Date date = null;
+        try {
+            date = inputFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String outputText = outputFormat.format(date);
+        return outputText;
+    }
 }

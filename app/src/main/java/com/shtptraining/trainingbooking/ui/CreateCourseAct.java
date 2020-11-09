@@ -32,6 +32,7 @@ import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -388,43 +389,57 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (validateForm()) {
-                            _callWebAPI.getAccountByName(_selectedTrainerName).enqueue(new Callback<List<Account>>() {
+                            Runnable r = new Runnable() {
                                 @Override
-                                public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
-                                    _selectedTrainerEmail = response.body().get(0).getEmail();
-                                }
+                                public void run() {
+                                    _callWebAPI.getAccountByName(_selectedTrainerName).enqueue(new Callback<List<Account>>() {
+                                        @Override
+                                        public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                                            _selectedTrainerEmail = response.body().get(0).getEmail();
+                                            String timeString = _btn_start_time_course.getHint() + " - " + _btn_end_time_course.getHint();
+                                            _callWebAPI.createCourse(
+                                                    _et_name_course.getText().toString(),
+                                                    _et_duration_date_course.getText().toString(),
+                                                    _et_duration_time_course.getText().toString(),
+                                                    _et_duration_course.getText().toString(),
+                                                    timeString,
+                                                    _btn_date_course.getHint().toString(),
+                                                    Date.valueOf(Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString())),
+                                                    _selectedTrainerEmail,
+                                                    _et_fee_course.getText().toString(),
+                                                    _selectedStatusCode,
+                                                    Integer.parseInt(_et_numberOf_course.getText().toString())
+                                            ).enqueue(new Callback<MessageFromAPI>() {
+                                                @Override
+                                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
+                                                    Helpers.showToast(CreateCourseAct.this, response.body().toString(), Toast.LENGTH_SHORT);
 
-                                @Override
-                                public void onFailure(Call<List<Account>> call, Throwable t) {
-                                    Log.e(TAG, t.getMessage());
-                                }
-                            });
+//                                                    if (response. != null && response.body().toString().equals("success")) {
+//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
+//                                                    } else {
+//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
+//                                                    }
+                                                }
 
-                            String timeString = _btn_start_time_course.getHint() + " - " + _btn_end_time_course.getHint();
+                                                @Override
+                                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
+                                                    Log.e(TAG, t.getMessage());
+                                                    Helpers.showToast(CreateCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
+                                                }
+                                            });
 
-                            _callWebAPI.createCourse(
-                                    _et_name_course.getText().toString(),
-                                    _et_duration_date_course.getText().toString(),
-                                    _et_duration_time_course.getText().toString(),
-                                    _et_duration_course.getText().toString(),
-                                    timeString,
-                                    _btn_date_course.getHint().toString(),
-                                    _btn_start_date_course.getHint().toString(),
-                                    _selectedTrainerEmail,
-                                    _et_fee_course.getText().toString(),
-                                    String.valueOf(_selectedStatusCode),
-                                    String.valueOf(Integer.parseInt(_et_numberOf_course.getText().toString()))
-                            ).enqueue(new Callback<MessageFromAPI>() {
-                                @Override
-                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-                                    Log.e(TAG, String.valueOf(response.body()));
-                                }
+                                        }
 
-                                @Override
-                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
-                                    Log.e(TAG, t.getMessage());
+                                        @Override
+                                        public void onFailure(Call<List<Account>> call, Throwable
+                                                t) {
+                                            Log.e(TAG, t.getMessage());
+                                        }
+                                    });
                                 }
-                            });
+                            };
+                            Thread getEmailTrainerThread = new Thread(r);
+                            getEmailTrainerThread.start();
                         }
                     }
                 });
@@ -432,6 +447,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                 dialog.show();
                 break;
         }
+
     }
 
     private boolean validateForm() {

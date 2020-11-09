@@ -6,6 +6,7 @@ import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +67,6 @@ public interface CallWebAPI {
     Call<MessageFromAPI> createCourse(
             @Field("name") String name, @Field("duration_date") String duration_date, @Field("duration_time") String duration_time,
             @Field("duration") String duration, @Field("time") String time, @Field("date") String date,
-            @Field("start_date") String start_date, @Field("trainer") String trainer, @Field("fee") String fee,
-            @Field("status") String status, @Field("numberof") String numberof);
+            @Field("start_date") Date start_date, @Field("trainer") String trainer, @Field("fee") String fee,
+            @Field("status") Integer status, @Field("numberof") Integer numberof);
 }
