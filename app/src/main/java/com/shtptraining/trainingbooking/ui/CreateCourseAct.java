@@ -1,5 +1,6 @@
 package com.shtptraining.trainingbooking.ui;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -28,7 +29,6 @@ import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesSpinnerAdapte
 import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
 import com.shtptraining.trainingbooking.Commons.Helpers;
 import com.shtptraining.trainingbooking.Models.Account;
-import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
@@ -90,7 +90,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
     List<String> _selectedDates = new ArrayList<>();
 
     //int MAX_SELECTED_DATES = 0;
-
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -409,25 +409,64 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                                                     _et_fee_course.getText().toString(),
                                                     _selectedStatusCode,
                                                     Integer.parseInt(_et_numberOf_course.getText().toString())
-                                            ).enqueue(new Callback<MessageFromAPI>() {
+                                            ).enqueue(new Callback<String>() {
                                                 @Override
-                                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-                                                    Helpers.showToast(CreateCourseAct.this, response.body().toString(), Toast.LENGTH_SHORT);
-
-//                                                    if (response. != null && response.body().toString().equals("success")) {
-//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
-//                                                    } else {
-//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
-//                                                    }
+                                                public void onResponse(Call<String> call, Response<String> response) {
+                                                    if (response.body() != null && response.body().equals("Create course successfull")) {
+                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
+                                                        finish();
+                                                    } else {
+                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
+                                                    }
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
+                                                public void onFailure(Call<String> call, Throwable t) {
                                                     Log.e(TAG, t.getMessage());
                                                     Helpers.showToast(CreateCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
                                                 }
                                             });
-
+//                                            Course course = new Course();
+//                                            course.setName( _et_name_course.getText().toString());
+//                                                    course.setDurationDate(_et_duration_date_course.getText().toString());
+//                                                    course.setDurationTime(_et_duration_time_course.getText().toString());
+//                                                    course.setDuration(_et_duration_course.getText().toString());
+//                                                    course.setTime(timeString);
+//                                                    course.setDate(_btn_date_course.getHint().toString());
+//                                                    course.setStartDate(Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString()));
+//                                                    course.setTrainer(_selectedTrainerEmail);
+//                                                    course.setFee(_et_fee_course.getText().toString());
+//                                                    course.setStatus(String.valueOf(_selectedStatusCode));
+//                                                    course.setNumberOf(_et_numberOf_course.getText().toString());
+//                                            Map<String,String> params = new HashMap<String, String>();
+//                                            params.put("name", _et_name_course.getText().toString());
+//                                            params.put("duration_date", _et_duration_date_course.getText().toString());
+//                                            params.put("duration_time", _et_duration_time_course.getText().toString());
+//                                            params.put("duration", _et_duration_course.getText().toString());
+//                                            params.put("time", timeString);
+//                                            params.put("date", _btn_date_course.getHint().toString());
+//                                            params.put("start_date", Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString()));
+//                                            params.put("trainer", _selectedTrainerEmail);
+//                                            params.put("fee", _et_fee_course.getText().toString());
+//                                            params.put("status", String.valueOf(_selectedStatusCode));
+//                                            params.put("numberof", _et_numberOf_course.getText().toString());
+//                                            _callWebAPI.createCourse(course).enqueue(new Callback<MessageFromAPI>() {
+//                                                @Override
+//                                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
+//                                                    if (response.body() != null && response.body().toString().equals("success")) {
+//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
+//                                                        finish();
+//                                                    } else {
+//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
+//                                                    }
+//                                                }
+//
+//                                                @Override
+//                                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
+//                                                    Log.e(TAG, t.getMessage());
+//                                                    Helpers.showToast(CreateCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
+//                                                }
+//                                            });
                                         }
 
                                         @Override
