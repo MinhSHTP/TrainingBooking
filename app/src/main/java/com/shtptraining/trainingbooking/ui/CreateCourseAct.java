@@ -426,47 +426,6 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                                                     Helpers.showToast(CreateCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
                                                 }
                                             });
-//                                            Course course = new Course();
-//                                            course.setName( _et_name_course.getText().toString());
-//                                                    course.setDurationDate(_et_duration_date_course.getText().toString());
-//                                                    course.setDurationTime(_et_duration_time_course.getText().toString());
-//                                                    course.setDuration(_et_duration_course.getText().toString());
-//                                                    course.setTime(timeString);
-//                                                    course.setDate(_btn_date_course.getHint().toString());
-//                                                    course.setStartDate(Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString()));
-//                                                    course.setTrainer(_selectedTrainerEmail);
-//                                                    course.setFee(_et_fee_course.getText().toString());
-//                                                    course.setStatus(String.valueOf(_selectedStatusCode));
-//                                                    course.setNumberOf(_et_numberOf_course.getText().toString());
-//                                            Map<String,String> params = new HashMap<String, String>();
-//                                            params.put("name", _et_name_course.getText().toString());
-//                                            params.put("duration_date", _et_duration_date_course.getText().toString());
-//                                            params.put("duration_time", _et_duration_time_course.getText().toString());
-//                                            params.put("duration", _et_duration_course.getText().toString());
-//                                            params.put("time", timeString);
-//                                            params.put("date", _btn_date_course.getHint().toString());
-//                                            params.put("start_date", Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString()));
-//                                            params.put("trainer", _selectedTrainerEmail);
-//                                            params.put("fee", _et_fee_course.getText().toString());
-//                                            params.put("status", String.valueOf(_selectedStatusCode));
-//                                            params.put("numberof", _et_numberOf_course.getText().toString());
-//                                            _callWebAPI.createCourse(course).enqueue(new Callback<MessageFromAPI>() {
-//                                                @Override
-//                                                public void onResponse(Call<MessageFromAPI> call, Response<MessageFromAPI> response) {
-//                                                    if (response.body() != null && response.body().toString().equals("success")) {
-//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
-//                                                        finish();
-//                                                    } else {
-//                                                        Helpers.showToast(CreateCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
-//                                                    }
-//                                                }
-//
-//                                                @Override
-//                                                public void onFailure(Call<MessageFromAPI> call, Throwable t) {
-//                                                    Log.e(TAG, t.getMessage());
-//                                                    Helpers.showToast(CreateCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
-//                                                }
-//                                            });
                                         }
 
                                         @Override
