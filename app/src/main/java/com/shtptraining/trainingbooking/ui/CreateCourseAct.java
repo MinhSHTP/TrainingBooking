@@ -53,15 +53,9 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
             _et_duration_course, _et_duration_time_course,
             _et_fee_course, _et_numberOf_course;
 
-    public Spinner _spinner_course_trainer;
+    public Spinner _spinner_course_trainer, _spinner_status_course;
 
     public Button _btn_start_time_course, _btn_end_time_course, _btn_date_course, _btn_start_date_course, _btn_confirm_create_course;
-
-//    public ImageView _iv_status_course;
-
-//    public TextView _tv_status_course;
-
-    public Spinner _spinner_status_course;
 
     public TimePickerDialog _timePickerDialog;
 
@@ -120,20 +114,11 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
         _btn_start_date_course = findViewById(R.id.btn_start_date_course);
         _btn_confirm_create_course = findViewById(R.id.btn_confirm_create_course);
 
-//        _iv_status_course = (ImageView) findViewById(R.id.iv_status_course);
-//        _tv_status_course = (TextView) findViewById(R.id.tv_status_course);
-
         _btn_start_date_course.setOnClickListener(this);
-//        _iv_status_course.setOnClickListener(this);
         _btn_start_time_course.setOnClickListener(this);
         _btn_end_time_course.setOnClickListener(this);
         _btn_date_course.setOnClickListener(this);
         _btn_confirm_create_course.setOnClickListener(this);
-//        _spinner_course_trainer.setOnItemSelectedListener(this);
-
-
-//        _spinner_status_course.setOnItemSelectedListener(this);
-
 
         _et_duration_date_course.setOnFocusChangeListener(this);
         _et_duration_time_course.setOnFocusChangeListener(this);

@@ -113,6 +113,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener 
             case R.id.btnForgetPassword:
                 break;
             case R.id.btnSignUp:
+                Intent signUpAct = new Intent();
+                startActivity(signUpAct);
                 break;
         }
     }

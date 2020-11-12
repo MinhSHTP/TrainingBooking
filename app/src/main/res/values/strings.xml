@@ -91,5 +91,14 @@
 
     <!--endregion-->
 
+    <!--region Strings of DetailCourseAct-->
+    <string name="lb_detail_course_act">Chi tiết Khóa học / Môn học</string>
+    <string name="tv_save_detail_course">Lưu thay đổi</string>
+    <string name="tv_undo_detail_course">Mặc định</string>
+    <string name="txt_btnBack">Quay lại</string>
+    <string name="txt_btnSave">Lưu thay đổi</string>
+
+
+    <!--endregion-->
 
 </resources>

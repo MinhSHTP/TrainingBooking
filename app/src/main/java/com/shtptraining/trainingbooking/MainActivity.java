@@ -22,6 +22,8 @@ import com.shtptraining.trainingbooking.ui.EditStatusColorCourseAct;
 
 public class MainActivity extends AppCompatActivity {
 
+    public String TAG = "MainActivity";
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
