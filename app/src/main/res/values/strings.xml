@@ -20,11 +20,16 @@
     <string name="txt_lb_hoten">Họ tên:</string>
     <string name="txt_lb_sdt">SĐT:</string>
     <string name="txt_lb_diachi">Địa chỉ:</string>
-    <string name="txt_lb_duong_hint">Đường...</string>
+    <string name="txt_lb_duong">Đường:</string>
     <string name="txt_lb_phuongxa">Phường/Xã:</string>
     <string name="txt_lb_quanhuyen">Quận/Huyện:</string>
     <string name="txt_lb_tinhthanhpho">Tỉnh/Thành phố:</string>
+    <string name="txt_lb_password">Mật khẩu:</string>
+    <string name="txt_lb_confirm_password">Xác nhận\nmật khẩu:</string>
+    <string name="txt_lb_gender">Giới tính:</string>
+    <string name="txt_lb_birth_year">Năm sinh:</string>
     <string name="txt_btnConfirm">Xác nhận</string>
+    <string name="txt_title">Đăng ký tài khoản</string>
     <!--endregion-->
 
     <!--region Google Drive API key-->
@@ -88,6 +93,8 @@
     <string name="txt_month"> tháng</string>
     <string name="txt_times"> buổi / tuần</string>
     <string name="txt_hours"> tiếng / buổi</string>
+
+    <string name="title_chose_date_in_week">Chọn ngày học trong 1 tuần</string>
 
     <!--endregion-->
 

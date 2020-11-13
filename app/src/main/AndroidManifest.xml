@@ -33,6 +33,7 @@
 
         <activity
             android:name=".ui.SignUpAct"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/FullScreenTheme">
 
         </activity>
@@ -54,6 +55,11 @@
         <activity
             android:name=".ui.CreateCourseAct"
             android:label="@string/lb_create_course_act">
+
+        </activity>
+        <activity
+            android:name=".ui.DetailCourseAct"
+            android:label="@string/lb_detail_course_act">
 
         </activity>
     </application>

@@ -54,6 +54,16 @@
         <item name="android:padding">5dp</item>
     </style>
 
+    <style name="txt_title_base">
+        <item name="android:textColor">#eb3a2a</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
     <style name="header_tbl_status_color_course">
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
@@ -78,6 +88,7 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_weight">3</item>
         <item name="android:padding">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
         <item name="android:background">@android:drawable/editbox_background_normal</item>
 <!--        <item name="android:textColor">@android:color/darker_gray</item>-->
     </style>

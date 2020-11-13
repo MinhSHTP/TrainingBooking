@@ -11,6 +11,10 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
 
+        <TextView
+            style="@style/txt_title_base"
+            android:text="@string/title_chose_date_in_week" />
+
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/chkbox_Monday"
             android:layout_width="wrap_content"

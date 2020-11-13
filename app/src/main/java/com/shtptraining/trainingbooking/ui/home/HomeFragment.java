@@ -152,9 +152,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<List<StatusColorCourse>> call, Response<List<StatusColorCourse>> response) {
                 _statusColorCourses = response.body();
-//                StatusColorCoursesGridViewAdapter adapter = new StatusColorCoursesGridViewAdapter(getContext(),_statusColorCourses);
-//                _gv_status_courses.setAdapter(adapter);
-//                GridLayoutManager gridLayoutManager= new GridLayoutManager(getActivity(), 3);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                 RecyclerView recyclerView = _root.findViewById(R.id.rv_status_courses);
                 recyclerView.setLayoutManager(layoutManager);

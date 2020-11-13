@@ -4,10 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.common.base.Predicate;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
 import com.shtptraining.trainingbooking.Commons.Helpers;
 import com.shtptraining.trainingbooking.Commons.MappingAddress.QuanHuyenPhuongXa;
 import com.shtptraining.trainingbooking.Commons.MappingAddress.TinhThanhPho;
@@ -27,13 +32,20 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI.retrofit;
+
 public class SignUpAct extends AppCompatActivity {
     private String TAG = "SignUpAct";
+    public static CallWebAPI _callWebAPI = retrofit.create(CallWebAPI.class);
 
     String jsonStringTinhThanh;
     String jsonStringPhuongXa;
     String jsonStringQuanHuyen;
-
+    String _address = "";
     Gson _gson = new Gson();
 
     public static ArrayList<TinhThanhPho> _TinhThanhPhos = new ArrayList<TinhThanhPho>();
@@ -42,6 +54,27 @@ public class SignUpAct extends AppCompatActivity {
 
     public static ArrayList<QuanHuyenPhuongXa> _MappingQuanHuyens = new ArrayList<QuanHuyenPhuongXa>();
     public static ArrayList<QuanHuyenPhuongXa> _MappingPhuongXas = new ArrayList<QuanHuyenPhuongXa>();
+    public static ArrayList<String> _genders = new ArrayList<>();
+
+    Button _btnConfirm;
+
+    Spinner _spinnerTp;
+    Spinner _spinnerQuanHuyen;
+    Spinner _spinnerPhuongXa;
+    Spinner _spinner_gender;
+
+    String _selectedTp;
+    String _selectedQuanHuyen;
+    String _selectedPhuongXa;
+    String _selectedGioiTinh = "Nam";
+
+    EditText _et_email;
+    EditText _et_hoten;
+    EditText _et_sdt;
+    EditText _et_diachi;
+    EditText _et_duong;
+    EditText _et_password, _et_confirm_password;
+    EditText _et_birth_year;
 
     @Override
     protected void onResume() {
@@ -56,9 +89,43 @@ public class SignUpAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        jsonStringTinhThanh = loadJSONFromAsset(getBaseContext(), "63_tinh_thanhpho.json");
+        jsonStringQuanHuyen = loadJSONFromAsset(getBaseContext(), "quan_huyen.json");
+        jsonStringPhuongXa = loadJSONFromAsset(getBaseContext(), "phuong_xa.json");
+//        init();
+
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        _spinnerTp = findViewById(R.id.spinner_tinhthanhpho);
+        _spinnerQuanHuyen = findViewById(R.id.spinner_quanhuyen);
+        _spinnerPhuongXa = findViewById(R.id.spinner_phuongxa);
+        _et_email = findViewById(R.id.et_email);
+        _et_hoten = findViewById(R.id.et_hoten);
+        _et_sdt = findViewById(R.id.et_sdt);
+        _et_diachi = findViewById(R.id.et_diachi);
+        _et_duong = findViewById(R.id.et_duong);
+
+        _spinner_gender = findViewById(R.id.spinner_gender);
+        _et_password = findViewById(R.id.et_password);
+        _et_confirm_password = findViewById(R.id.et_confirm_password);
+        _et_confirm_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    //focus out
+                    if (!_et_password.getText().toString().equals(_et_confirm_password.getText().toString())) {
+                        Helpers.showToast(SignUpAct.this, "Xác nhận mật khẩu không trùng khớp", Toast.LENGTH_SHORT);
+                    }
+
+                }
+            }
+        });
+        _et_birth_year = findViewById(R.id.et_birth_year);
 
         init();
-
     }
 
     private void clearDataHanhChinh() {
@@ -67,6 +134,7 @@ public class SignUpAct extends AppCompatActivity {
         _PhuongXas.clear();
         _MappingPhuongXas.clear();
         _MappingQuanHuyens.clear();
+        _genders.clear();
     }
 
     private void initializeDataHanhChinh(String jsonString, int type) {
@@ -97,14 +165,16 @@ public class SignUpAct extends AppCompatActivity {
     }
 
     private void init() {
-        jsonStringTinhThanh = loadJSONFromAsset(getBaseContext(), "63_tinh_thanhpho.json");
-        jsonStringQuanHuyen = loadJSONFromAsset(getBaseContext(), "quan_huyen.json");
-        jsonStringPhuongXa = loadJSONFromAsset(getBaseContext(), "phuong_xa.json");
 
-        final Spinner spinnerTp = findViewById(R.id.spinner_tinhthanhpho);
-        final Spinner spinnerQuanHuyen = findViewById(R.id.spinner_quanhuyen);
-        final Spinner spinnerPhuongXa = findViewById(R.id.spinner_phuongxa);
-
+        _et_duong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    //focus out
+                    autoFillAddress();
+                }
+            }
+        });
         initializeDataHanhChinh(jsonStringTinhThanh, 0);
         System.gc();
         initializeDataHanhChinh(jsonStringQuanHuyen, 1);
@@ -112,16 +182,42 @@ public class SignUpAct extends AppCompatActivity {
         initializeDataHanhChinh(jsonStringPhuongXa, 2);
         System.gc();
 //
-        mappingDataHanhChinh(spinnerTp, 0, null);
-        spinnerTp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mappingDataHanhChinh(_spinnerTp, 0, null);
+
+        _genders.add("Nam");
+        _genders.add("Nữ");
+        _genders.add("Giới tính thứ 3");
+        ArrayAdapter<String> adapterGender = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, _genders);
+        _spinner_gender.setAdapter(adapterGender);
+        _spinner_gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinnerQuanHuyen.setAdapter(null);
-                spinnerPhuongXa.setAdapter(null);
+                _selectedGioiTinh = _genders.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        _spinnerTp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                _spinnerQuanHuyen.setAdapter(null);
+                _spinnerPhuongXa.setAdapter(null);
+
+                _selectedQuanHuyen = "";
+                _selectedPhuongXa = "";
                 if (position != 0) {
                     String code = _TinhThanhPhos.get(position - 1).getCode();
-                    mappingDataHanhChinh(spinnerQuanHuyen, 1, code);
+                    mappingDataHanhChinh(_spinnerQuanHuyen, 1, code);
+                    _selectedTp = _TinhThanhPhos.get(position - 1).getName_with_type();
+                } else {
+                    _selectedTp = "";
                 }
+                autoFillAddress();
             }
 
             @Override
@@ -130,16 +226,21 @@ public class SignUpAct extends AppCompatActivity {
             }
         });
 //
-        spinnerQuanHuyen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        _spinnerQuanHuyen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinnerPhuongXa.setAdapter(null);
+                _spinnerPhuongXa.setAdapter(null);
+                _selectedPhuongXa = "";
                 if (position != 0) {
-                    Predicate<QuanHuyenPhuongXa> validParentCodeByNamePredicate = quanHuyen -> quanHuyen.getName_with_type().equals(String.valueOf(spinnerQuanHuyen.getItemAtPosition(position)));
+                    Predicate<QuanHuyenPhuongXa> validParentCodeByNamePredicate = quanHuyen -> quanHuyen.getName_with_type().equals(String.valueOf(_spinnerQuanHuyen.getItemAtPosition(position)));
                     ArrayList<String> filteredParentCodeByName = Helpers.filterParentCodeByName(_QuanHuyens, validParentCodeByNamePredicate);
                     String code = filteredParentCodeByName.get(0);
-                    mappingDataHanhChinh(spinnerPhuongXa, 2, code);
+                    mappingDataHanhChinh(_spinnerPhuongXa, 2, code);
+                    _selectedQuanHuyen = _QuanHuyens.get(position).getName_with_type();
+                } else {
+                    _selectedQuanHuyen = "";
                 }
+                autoFillAddress();
             }
 
             @Override
@@ -147,6 +248,138 @@ public class SignUpAct extends AppCompatActivity {
 
             }
         });
+
+        _spinnerPhuongXa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    _selectedPhuongXa = _PhuongXas.get(position).getName_with_type();
+                } else {
+                    _selectedPhuongXa = "";
+                }
+                autoFillAddress();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        _btnConfirm = (Button) findViewById(R.id.btnConfirm);
+        _btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateForm()) {
+//                    Account account = new Account();
+//                    account.setName(_et_hoten.getText().toString().isEmpty() ? "" : _et_hoten.getText().toString());
+//                    account.setEmail(_et_email.getText().toString().isEmpty() ? "" : _et_email.getText().toString());
+//                    account.setPhone(_et_sdt.getText().toString().isEmpty() ? "" : _et_sdt.getText().toString());
+//                    account.setAddress(_et_diachi.getText().toString().isEmpty() ? "" : _et_diachi.getText().toString());
+//                    account.setGender(_selectedGioiTinh);
+//                    account.setBirthYear(_et_birth_year.getText().toString());
+//                    account.setPassword(_et_password.getText().toString());
+//                    account.setRole("1");
+                    _callWebAPI.createAccount(
+                            _et_hoten.getText().toString().isEmpty() ? "" : _et_hoten.getText().toString(),
+                            _selectedGioiTinh,
+                            _et_password.getText().toString(),
+                            _et_email.getText().toString().isEmpty() ? "" : _et_email.getText().toString(),
+                            _et_password.getText().toString(),
+                            _et_diachi.getText().toString().isEmpty() ? "" : _et_diachi.getText().toString(),
+                            _et_sdt.getText().toString().isEmpty() ? "" : _et_sdt.getText().toString(),
+                            1
+                    ).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if (response.body() != null && response.body().equals("Create course successfull")) {
+                                Helpers.showToast(SignUpAct.this, "Đăng ký thành công", Toast.LENGTH_SHORT);
+                                finish();
+                            } else {
+                                Helpers.showToast(SignUpAct.this, "Đăng ký thất bại", Toast.LENGTH_SHORT);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.e(TAG, t.getMessage());
+                            Helpers.showToast(SignUpAct.this, t.getMessage(), Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+    private boolean validateForm() {
+
+        if (_et_email.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Email", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_password.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Mật khẩu", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (!_et_password.getText().toString().equals(_et_confirm_password.getText().toString())) {
+            Helpers.showToast(SignUpAct.this, "Xác nhận mật khẩu không trùng khớp", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_hoten.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Họ tên", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_hoten.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Họ tên", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_birth_year.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Năm sinh", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_sdt.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Số điện thoại", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_diachi.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng điền Địa chỉ", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_et_sdt.getText().toString().isEmpty()) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng nhập Đường", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+
+        if (_selectedTp.equals("")) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng Chọn Tỉnh / Thành phố", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_selectedQuanHuyen.equals("")) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng Chọn Quận / Huyện", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        if (_selectedPhuongXa.equals("")) {
+            Helpers.showToast(SignUpAct.this, "Vui lòng Chọn Phường / Xã", Toast.LENGTH_SHORT);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void autoFillAddress() {
+        _et_diachi.setText(_et_duong.getText() + ", " + _selectedPhuongXa + ", " + _selectedQuanHuyen + ", " + _selectedTp);
     }
 
     private void mappingDataHanhChinh(Spinner spinnerMapping, int type, String code) {

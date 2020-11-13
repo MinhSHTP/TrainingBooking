@@ -44,6 +44,13 @@ public interface CallWebAPI {
     @POST("Account/GET/GetAccountByName.php")
     Call<List<Account>> getAccountByName(@Field("name") String name);
 
+    @FormUrlEncoded
+    @POST("Account/POST/CreateAccount.php")
+        //Call<String> createAccount(@Body Account account);
+    Call<String> createAccount(@Field("name") String name, @Field("gender") String gender, @Field("birth_year") String birth_year, @Field("email") String email,
+                               @Field("password") String password, @Field("address") String address, @Field("phone") String phone, @Field("role") Integer role);
+
+
     //=================================================================================================
     @FormUrlEncoded
     @POST("Course/GET/GetAllCoursesByDate.php")

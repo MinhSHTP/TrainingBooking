@@ -414,8 +414,7 @@ public class CreateCourseAct extends AppCompatActivity implements View.OnClickLi
                                         }
 
                                         @Override
-                                        public void onFailure(Call<List<Account>> call, Throwable
-                                                t) {
+                                        public void onFailure(Call<List<Account>> call, Throwable t) {
                                             Log.e(TAG, t.getMessage());
                                         }
                                     });

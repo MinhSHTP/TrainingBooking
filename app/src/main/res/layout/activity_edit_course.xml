@@ -52,10 +52,8 @@
 
                         <TextView
                             android:layout_span="5"
-                            android:gravity="center"
                             android:text="@string/title_edit_course"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            style="@style/txt_title_base" />
                     </TableRow>
 
                     <TableRow
