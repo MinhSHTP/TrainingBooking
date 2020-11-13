@@ -4,6 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Course {
+    @SerializedName("ID")
+    @Expose
+    private Integer Id;
+
     @SerializedName("NAME")
     @Expose
     private String Name;
@@ -116,4 +120,55 @@ public class Course {
         return StatusColor;
     }
 
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setDurationDate(String durationDate) {
+        DurationDate = durationDate;
+    }
+
+    public void setDurationTime(String durationTime) {
+        DurationTime = durationTime;
+    }
+
+    public void setDuration(String duration) {
+        Duration = duration;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public void setTrainer(String trainer) {
+        Trainer = trainer;
+    }
+
+    public void setFee(String fee) {
+        Fee = fee;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public void setNumberOf(String numberOf) {
+        NumberOf = numberOf;
+    }
+
+    public void setStatusName(String statusName) {
+        StatusName = statusName;
+    }
+
+    public void setStatusColor(String statusColor) {
+        StatusColor = statusColor;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 }

@@ -7,4 +7,5 @@
     android:singleLine="true"
     android:background="@drawable/spinner_item_border"
     android:checkMark="@drawable/default_checkbox"
-    />
+    android:layout_margin="10dp"
+    android:gravity="center" />

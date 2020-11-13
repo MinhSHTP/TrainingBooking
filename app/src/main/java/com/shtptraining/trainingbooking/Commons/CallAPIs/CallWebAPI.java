@@ -1,12 +1,12 @@
 package com.shtptraining.trainingbooking.Commons.CallAPIs;
 
+import com.shtptraining.trainingbooking.Commons.Constants;
 import com.shtptraining.trainingbooking.Models.Account;
 import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 
-import org.json.JSONArray;
-
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,9 +18,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface CallWebAPI {
     OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
@@ -30,26 +27,53 @@ public interface CallWebAPI {
             .build();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://elearningrobotsimulation.000webhostapp.com/TrainingBookingAPI/api/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build();
 
+    //0 = Admin role, 1 = Trainer role, 2 = Student role
     @FormUrlEncoded
-    @POST("AccountLogin.php?")
-    Call<MessageFromAPI> getAccountLogin(@Field("email") String email, @Field("password") String password);
+    @POST("Account/POST/AccountLogin.php?")
+    Call<MessageFromAPI> Login(@Field("email") String email, @Field("password") String password);
+
+    @GET("Account/GET/GetAllAccounts.php")
+    Call<List<Account>> getAllAccounts();
 
     @FormUrlEncoded
-    @POST("GetAllCoursesByDate.php")
-        //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
+    @POST("Account/GET/GetAccountByName.php")
+    Call<List<Account>> getAccountByName(@Field("name") String name);
+
+    @FormUrlEncoded
+    @POST("Account/POST/CreateAccount.php")
+        //Call<String> createAccount(@Body Account account);
+    Call<String> createAccount(@Field("name") String name, @Field("gender") String gender, @Field("birth_year") String birth_year, @Field("email") String email,
+                               @Field("password") String password, @Field("address") String address, @Field("phone") String phone, @Field("role") Integer role);
+
+
+    //=================================================================================================
+    @FormUrlEncoded
+    @POST("Course/GET/GetAllCoursesByDate.php")
+    //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCoursesByDate(@Field("startDate") String startDate);
 
-    @GET("GetAllCoursesWithStatusColor.php")
+    @FormUrlEncoded
+    @POST("Course/GET/GetAllCoursesByID.php")
+        //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
+    Call<List<Course>> getAllCoursesByID(@Field("ID") Integer ID);
+
+    @GET("Course/GET/GetAllCoursesWithStatusColor.php")
         //0 = Đang chiêu sinh, 1 = Đã kết thúc, 2 = Đang đào tạo, 3 = Dời lại
     Call<List<Course>> getAllCourses();
 
-    @GET("GetAllStatusColorCourses.php")
+    @GET("StatusColorCourse/GET/GetAllStatusColorCourses.php")
     Call<List<StatusColorCourse>> getAllStatusColorCourses();
 
-
+    @FormUrlEncoded
+    @POST("Course/POST/CreateCourse.php")
+    Call<String> createCourse(
+            @Field("name") String name, @Field("duration_date") String duration_date, @Field("duration_time") String duration_time,
+            @Field("duration") String duration, @Field("time") String time, @Field("date") String date,
+            @Field("start_date") Date start_date, @Field("trainer") String trainer, @Field("fee") String fee,
+            @Field("status") Integer status, @Field("numberof") Integer numberof);
 }

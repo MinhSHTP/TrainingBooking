@@ -20,11 +20,16 @@
     <string name="txt_lb_hoten">Họ tên:</string>
     <string name="txt_lb_sdt">SĐT:</string>
     <string name="txt_lb_diachi">Địa chỉ:</string>
-    <string name="txt_lb_duong_hint">Đường...</string>
+    <string name="txt_lb_duong">Đường:</string>
     <string name="txt_lb_phuongxa">Phường/Xã:</string>
     <string name="txt_lb_quanhuyen">Quận/Huyện:</string>
     <string name="txt_lb_tinhthanhpho">Tỉnh/Thành phố:</string>
+    <string name="txt_lb_password">Mật khẩu:</string>
+    <string name="txt_lb_confirm_password">Xác nhận\nmật khẩu:</string>
+    <string name="txt_lb_gender">Giới tính:</string>
+    <string name="txt_lb_birth_year">Năm sinh:</string>
     <string name="txt_btnConfirm">Xác nhận</string>
+    <string name="txt_title">Đăng ký tài khoản</string>
     <!--endregion-->
 
     <!--region Google Drive API key-->
@@ -35,8 +40,72 @@
     <string name="see_detail_course"> >> Xem chi tiết </string>
     <!--endregion-->
 
-    <!--region Strings of -->
-    <string name="tv_edit_status_color_course">Chỉnh sửa màu trạng thái</string>
+    <!--region Strings of Edit Status Color-->
+    <string name="tv_edit_account">Tài khoản</string>
+    <string name="tv_edit_course">Khóa học / Lớp học</string>
+    <string name="tv_edit_status_color_course">Màu trạng thái</string>
+    <string name="tv_save">Lưu bảng trạng thái</string>
+    <string name="tv_add_item">Thêm trạng thái</string>
+    <string name="tv_undo">Hoàn tác bảng trạng thái</string>
+    <!--endregion-->
+
+    <!--region Strings of Home Page-->
+    <string name="tv_edit">Chỉnh sửa</string>
+    <!--endregion-->
+
+    <!--region Strings of EditCourseAct-->
+    <string name="tv_course_name">Khóa học</string>
+    <string name="tv_course_trainer">Giảng viên</string>
+    <string name="tv_course_numberOf">Số lượng</string>
+    <string name="tv_course_startDate">Ngày khai giảng</string>
+    <string name="tv_course_detail">Chi tiết</string>
+    <string name="title_edit_course">Danh sách các khóa học</string>
+    <string name="lb_edit_course_act">Khóa học / Môn học</string>
+
+    <string name="btn_detail">Xem</string>
+    <!--endregion-->
+
+    <!--region Strings of CreateCourseAct-->
+    <string name="lb_create_course_act">Thêm Khóa học / Môn học</string>
+    <string name="tv_name_course">Tên khóa học</string>
+    <string name="tv_duration_date_course">Thời gian học</string>
+    <string name="tv_duration_time_course">Số giờ học</string>
+    <string name="tv_duration_course">Số buổi</string>
+    <string name="tv_time_course">Giờ học</string>
+    <string name="tv_date_course">Ngày học</string>
+    <string name="tv_start_date_course">Ngày khai giảng</string>
+    <string name="tv_trainer_course">Giảng viên</string>
+    <string name="tv_fee_course">Học phí</string>
+    <string name="tv_status_course">Trạng thái</string>
+    <string name="tv_numberof_course">Số lượng</string>
+    <string name="btn_chose_date_course">Nhấn chọn ngày trong tuần</string>
+    <string name="btn_chose_start_date_course">Nhấn chọn ngày</string>
+    <string name="btn_chose_time_course">Nhấn chọn giờ</string>
+
+    <string name="chkbox_Monday">Thứ 2</string>
+    <string name="chkbox_Tuesday">Thứ 3</string>
+    <string name="chkbox_Wednesday">Thứ 4</string>
+    <string name="chkbox_Thursday">Thứ 5</string>
+    <string name="chkbox_Friday">Thứ 6</string>
+    <string name="chkbox_Saturday">Thứ 7</string>
+    <string name="chkbox_Sunday">Chủ nhật</string>
+
+    <string name="txt_month"> tháng</string>
+    <string name="txt_times"> buổi / tuần</string>
+    <string name="txt_hours"> tiếng / buổi</string>
+
+    <string name="title_chose_date_in_week">Chọn ngày học trong 1 tuần</string>
+
+    <!--endregion-->
+
+    <!--region Strings of DetailCourseAct-->
+    <string name="lb_detail_course_act">Chi tiết Khóa học / Môn học</string>
+    <string name="tv_save_detail_course">Lưu thay đổi</string>
+    <string name="tv_undo_detail_course">Mặc định</string>
+    <string name="txt_btnBack">Quay lại</string>
+    <string name="txt_btnSave">Lưu thay đổi</string>
+
+
     <!--endregion-->
 
 </resources>

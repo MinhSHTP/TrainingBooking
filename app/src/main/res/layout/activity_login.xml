@@ -122,7 +122,7 @@
             android:shadowColor="@android:color/transparent"
             android:text="@string/txt_btnSignUp"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="#3161a3"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -137,7 +137,7 @@
             android:shadowColor="@android:color/transparent"
             android:text="@string/txt_btnForgetPassword"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="#f74040"
             android:textSize="16sp"
             android:textStyle="bold" />
 

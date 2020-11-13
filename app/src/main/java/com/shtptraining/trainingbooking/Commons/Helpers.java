@@ -14,9 +14,12 @@ import com.google.common.base.Predicate;
 import com.shtptraining.trainingbooking.Commons.MappingAddress.QuanHuyenPhuongXa;
 import com.shtptraining.trainingbooking.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.zip.Inflater;
+import java.util.Date;
+import java.util.Locale;
 
 public class Helpers {
     public static AlertDialog _dialog;
@@ -67,6 +70,14 @@ public class Helpers {
         dialog.show();
     }
 
+    public static AlertDialog.Builder showAlertDialogConfirmInfor(Context context, String message, String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message);
+        builder.setTitle(title);
+
+        return builder;
+    }
+
     public static void showLoadingDialog(Context context, String content) {
         View v = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
         TextView tvContent = (TextView) v.findViewById(R.id.tv_content);
@@ -80,10 +91,39 @@ public class Helpers {
         _dialog.show();
     }
 
-    public static void dismissLoadingDialog(){
-        if(_dialog != null)
-        {
+    public static void dismissLoadingDialog() {
+        if (_dialog != null) {
             _dialog.dismiss();
         }
+    }
+
+    public static String toDDMMYYY(String dateString) {
+        DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        Date date = null;
+        try {
+            date = inputFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String outputText = outputFormat.format(date);
+        return outputText;
+    }
+
+    public static String toYYYYMMDD(String dateString) {
+        DateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        Date date = null;
+        try {
+            date = inputFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String outputText = outputFormat.format(date);
+        return outputText;
     }
 }

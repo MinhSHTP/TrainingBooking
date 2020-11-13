@@ -1,7 +1,6 @@
 package com.shtptraining.trainingbooking.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -11,10 +10,11 @@ import android.view.KeyEvent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shtptraining.trainingbooking.MainActivity;
 import com.shtptraining.trainingbooking.R;
 
 public class SplashScreenAct extends AppCompatActivity {
+    private String TAG = "SplashScreenAct";
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

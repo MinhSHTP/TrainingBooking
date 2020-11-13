@@ -1,204 +1,359 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_back"
-            android:drawablePadding="10dp"
-            android:padding="10dp"
-            android:text="@string/txt_back"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_back"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="@string/txt_back"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/txt_title_base"
+                        android:text="@string/txt_title" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lb_email" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_email"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_txt_corners"
+                    android:inputType="textEmailAddress" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_lb_password" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_txt_corners"
+                    android:inputType="textPassword" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_lb_confirm_password" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_confirm_password"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_txt_corners"
+                    android:inputType="textPassword" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_lb_hoten" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_hoten"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_txt_corners" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_lb_gender" />
+
+                </LinearLayout>
+
+                <!--                <EditText-->
+                <!--                    android:id="@+id/et_gender"-->
+                <!--                    style="@style/et_create_course_act"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:background="@drawable/edit_txt_corners"-->
+                <!--                    />-->
+                <Spinner
+                    android:id="@+id/spinner_gender"
+                    style="@style/style_spinner_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:spinnerMode="dropdown" />
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_lb_birth_year" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_birth_year"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_txt_corners"
+                    android:inputType="numberDecimal" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_lb_sdt" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_sdt"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_txt_corners" />
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_lb_diachi" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_diachi"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_txt_corners"
+                    android:enabled="false" />
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <EditText
+                    android:id="@+id/et_duong"
+                    style="@style/et_create_course_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/edit_txt_corners"
+                    android:hint="@string/txt_lb_duong"
+                    android:paddingLeft="10dp" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <Spinner
+                    android:id="@+id/spinner_tinhthanhpho"
+                    style="@style/style_spinner_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <Spinner
+                    android:id="@+id/spinner_quanhuyen"
+                    style="@style/style_spinner_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <Spinner
+                    android:id="@+id/spinner_phuongxa"
+                    style="@style/style_spinner_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp" />
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:background="#0669b2"
+            android:text="@string/txt_btnConfirm"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1">
-
-        <TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/style_lb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lb_email" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/edit_txt_corners" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/style_lb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/txt_lb_hoten" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_hoten"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_txt_corners" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/style_lb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/txt_lb_sdt" />
-
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_sdt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_txt_corners" />
-        </TableRow>
-
-        <TableRow>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/style_lb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/txt_lb_diachi" />
-
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_diachi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/edit_txt_corners"
-                android:enabled="false" />
-        </TableRow>
-
-        <TableRow>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-
-            <EditText
-                android:id="@+id/et_duong"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edit_txt_corners"
-                android:hint="@string/txt_lb_duong_hint"
-                android:paddingLeft="10dp" />
-
-        </TableRow>
-
-        <TableRow>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <Spinner
-                android:id="@+id/spinner_tinhthanhpho"
-                style="@style/style_spinner_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp" />
-        </TableRow>
-
-        <TableRow>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <Spinner
-                android:id="@+id/spinner_quanhuyen"
-                style="@style/style_spinner_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp" />
-        </TableRow>
-
-        <TableRow>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <Spinner
-                android:id="@+id/spinner_phuongxa"
-                style="@style/style_spinner_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp" />
-        </TableRow>
-    </TableLayout>
-
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
-        android:background="#0669b2"
-        android:text="@string/txt_btnConfirm"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-</LinearLayout>
+</ScrollView>

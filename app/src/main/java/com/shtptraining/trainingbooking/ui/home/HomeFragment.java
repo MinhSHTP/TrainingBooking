@@ -1,8 +1,6 @@
 package com.shtptraining.trainingbooking.ui.home;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -10,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,9 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -33,13 +28,8 @@ import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
-import org.json.JSONArray;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -73,22 +63,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         _root = inflater.inflate(R.layout.fragment_home, container, false);
-        try {
-            Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
-            init();
-            loadData();
-            Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
-        } catch (Exception ex) {
-            Log.d(TAG, ex.toString());
-            Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
-        } finally {
-            Helpers.dismissLoadingDialog();
-        }
-
-
 //        final TextView textView = root.findViewById(R.id.text_home);
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
@@ -99,9 +77,35 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return _root;
     }
 
-    private void loadData() {
-        loadStatusColorCourses(_callWebAPI);
-        loadCalendarCourse(_callWebAPI, _myCalendar);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        try {
+            Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
+            init();
+            boolean resultLoadData = loadDataFromAPI();
+            if (resultLoadData) {
+                Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
+            } else {
+                Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+            }
+        } catch (Exception ex) {
+            Log.d(TAG, ex.toString());
+            Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+        } finally {
+            Helpers.dismissLoadingDialog();
+        }
+    }
+
+    private boolean loadDataFromAPI() {
+        try {
+            loadStatusColorCourses(_callWebAPI);
+            loadCalendarCourse(_callWebAPI, _myCalendar);
+            return true;
+        } catch (Exception ex) {
+            Log.d(TAG, ex.toString());
+            return false;
+        }
     }
 
     private void init() {
@@ -124,7 +128,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
                         try {
                             Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
-                            loadData();
+                            boolean resultLoadData = loadDataFromAPI();
+                            if (resultLoadData) {
+                                Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
+                            } else {
+                                Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+                            }
                             Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
                         } catch (Exception ex) {
                             Log.d(TAG, ex.toString());
@@ -143,11 +152,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<List<StatusColorCourse>> call, Response<List<StatusColorCourse>> response) {
                 _statusColorCourses = response.body();
-//                StatusColorCoursesGridViewAdapter adapter = new StatusColorCoursesGridViewAdapter(getContext(),_statusColorCourses);
-//                _gv_status_courses.setAdapter(adapter);
-//                GridLayoutManager gridLayoutManager= new GridLayoutManager(getActivity(), 3);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-                RecyclerView recyclerView = getView().findViewById(R.id.rv_status_courses);
+                RecyclerView recyclerView = _root.findViewById(R.id.rv_status_courses);
                 recyclerView.setLayoutManager(layoutManager);
                 StatusColorCoursesGridViewAdapter adapter = new StatusColorCoursesGridViewAdapter(getContext(), _statusColorCourses);
                 recyclerView.setAdapter(adapter);
@@ -162,7 +168,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void loadCalendarCourse(CallWebAPI callWebAPI, Calendar dateInput) {
         _courses.clear();
-        if(dateInput == null){
+        if (dateInput == null) {
             dateInput = Calendar.getInstance();
         }
         Log.d(TAG, dateInput.getTime().toString());
@@ -216,7 +222,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     _courses = response.body();
 //                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    RecyclerView recyclerView = getView().findViewById(finalRvID);
+                    RecyclerView recyclerView = _root.findViewById(finalRvID);
                     recyclerView.setLayoutManager(layoutManager);
                     CalendarCoursesAdapter adapter = new CalendarCoursesAdapter(getContext(), _courses);
                     recyclerView.setAdapter(adapter);

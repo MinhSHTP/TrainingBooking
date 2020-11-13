@@ -33,19 +33,35 @@
 
         <activity
             android:name=".ui.SignUpAct"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/FullScreenTheme">
 
         </activity>
 
         <activity
             android:name=".ui.EditStatusColorCourseAct"
-            android:theme="@style/FullScreenTheme">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:label="@string/tv_edit_status_color_course">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
 
+        <activity
+            android:name=".ui.EditCourseAct"
+            android:label="@string/lb_edit_course_act">
+
+        </activity>
+        <activity
+            android:name=".ui.CreateCourseAct"
+            android:label="@string/lb_create_course_act">
+
+        </activity>
+        <activity
+            android:name=".ui.DetailCourseAct"
+            android:label="@string/lb_detail_course_act">
+
+        </activity>
     </application>
 
 </manifest>
