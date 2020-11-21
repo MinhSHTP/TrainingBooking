@@ -3,7 +3,9 @@ package com.shtptraining.trainingbooking.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StatusColorCourse {
+import java.io.Serializable;
+
+public class StatusColorCourse implements Serializable {
     @SerializedName("CODE")
     @Expose
     private String Code;

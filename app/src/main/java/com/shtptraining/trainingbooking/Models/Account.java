@@ -3,7 +3,9 @@ package com.shtptraining.trainingbooking.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     @SerializedName("NAME")
     @Expose
     private String Name;

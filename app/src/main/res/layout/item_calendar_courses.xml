@@ -39,13 +39,14 @@
                 android:text="16:00 PM - 18:00 PM"
                 android:textSize="16sp"
                 />
+
             <TextView
                 android:id="@+id/tv_see_detail_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/see_detail_course"
-                android:textStyle="italic"
-                android:textColor="#035296"/>
+                android:textColor="#035296"
+                android:textStyle="italic" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

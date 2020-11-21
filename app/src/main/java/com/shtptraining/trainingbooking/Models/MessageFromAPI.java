@@ -3,7 +3,9 @@ package com.shtptraining.trainingbooking.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MessageFromAPI {
+import java.io.Serializable;
+
+public class MessageFromAPI implements Serializable {
     @SerializedName("status")
     @Expose
     private String Status;

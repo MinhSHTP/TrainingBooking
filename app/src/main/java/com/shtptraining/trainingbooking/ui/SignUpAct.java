@@ -271,15 +271,6 @@ public class SignUpAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateForm()) {
-//                    Account account = new Account();
-//                    account.setName(_et_hoten.getText().toString().isEmpty() ? "" : _et_hoten.getText().toString());
-//                    account.setEmail(_et_email.getText().toString().isEmpty() ? "" : _et_email.getText().toString());
-//                    account.setPhone(_et_sdt.getText().toString().isEmpty() ? "" : _et_sdt.getText().toString());
-//                    account.setAddress(_et_diachi.getText().toString().isEmpty() ? "" : _et_diachi.getText().toString());
-//                    account.setGender(_selectedGioiTinh);
-//                    account.setBirthYear(_et_birth_year.getText().toString());
-//                    account.setPassword(_et_password.getText().toString());
-//                    account.setRole("1");
                     _callWebAPI.createAccount(
                             _et_hoten.getText().toString().isEmpty() ? "" : _et_hoten.getText().toString(),
                             _selectedGioiTinh,
