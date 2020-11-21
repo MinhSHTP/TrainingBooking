@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shtptraining.trainingbooking.Commons.Helpers;
 import com.shtptraining.trainingbooking.Interfaces.RecyclerViewClickListener;
 import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.R;
@@ -54,7 +52,6 @@ public class CalendarCoursesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         viewHolderCalendarCourses.tv_see_detail_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helpers.showToast(_context, _courses.get(position).getName(), Toast.LENGTH_SHORT);
                 Intent detailCourse = new Intent(_context, DetailCourseAct.class);
                 detailCourse.putExtra("SELECTED_COURSE", (Serializable) _courses.get(position));
                 _context.startActivity(detailCourse);
