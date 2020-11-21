@@ -219,7 +219,6 @@ public class DetailCourseAct extends AppCompatActivity implements View.OnClickLi
                 _spinner_course_trainer.setAdapter(spinnerAdapter);
 
                 for (int i = 0; i < trainerNames.size(); i++) {
-
                     if (trainerNames.get(i).equals(_selectedCourse.getTrainer())) {
                         _spinner_course_trainer.setSelection(i);
                         _selectedTrainerName = trainerNames.get(i);
