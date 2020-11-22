@@ -1,10 +1,14 @@
 package com.shtptraining.trainingbooking.ui.home;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -18,15 +22,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.shtptraining.trainingbooking.Adapters.CalendarCoursesAdapter;
 import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesGridViewAdapter;
 import com.shtptraining.trainingbooking.Commons.CallAPIs.CallWebAPI;
+import com.shtptraining.trainingbooking.Commons.Constants;
 import com.shtptraining.trainingbooking.Commons.Helpers;
 import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
+import com.shtptraining.trainingbooking.ui.EditCourseAct;
+import com.shtptraining.trainingbooking.ui.EditStatusColorCourseAct;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,22 +65,59 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public static CallWebAPI _callWebAPI = retrofit.create(CallWebAPI.class);
 
-    public SwipeRefreshLayout _swipRefreshLayout;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         _root = inflater.inflate(R.layout.fragment_home, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+        setHasOptionsMenu(true);
         return _root;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_activity_actionbar_menu, menu);
+        if (!Constants.ACCOUNT_LOGIN.getRole().equals("0")) {
+            menu.findItem(R.id.btn_edit).setVisible(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btn_edit_account:
+                Helpers.showToast(getContext(), "Chức năng này hiện đang trong giai đoạn phát triển", 0);
+                break;
+            case R.id.btn_edit_course:
+                Intent editCourseAct = new Intent(getContext(), EditCourseAct.class);
+                startActivity(editCourseAct);
+//                Helpers.showToast(MainActivity.this, "Chức năng này hiện đang trong giai đoạn phát triển", 0);
+                break;
+            case R.id.btn_edit_status_color_course:
+                Intent editStatusColorCourseAct = new Intent(getContext(), EditStatusColorCourseAct.class);
+                startActivity(editStatusColorCourseAct);
+                break;
+            case R.id.btn_refresh:
+                try {
+                    Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
+                    boolean resultLoadData = loadDataFromAPI();
+                    if (resultLoadData) {
+                        Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
+                    } else {
+                        Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+                    }
+                    Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
+                } catch (Exception ex) {
+                    Log.d(TAG, ex.toString());
+                    Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
+                } finally {
+                    Helpers.dismissLoadingDialog();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -119,32 +162,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         _iv_chose_date = (ImageView) _root.findViewById(R.id.iv_chose_date);
         _iv_chose_date.setOnClickListener(this);
-
-        _swipRefreshLayout = (SwipeRefreshLayout) _root.findViewById(R.id.swipeRefresh);
-        _swipRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-                        try {
-                            Helpers.showLoadingDialog(getContext(), "Đang lấy dữ liệu...");
-                            boolean resultLoadData = loadDataFromAPI();
-                            if (resultLoadData) {
-                                Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
-                            } else {
-                                Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
-                            }
-                            Helpers.showToast(getContext(), "Load dữ liệu thành công", Toast.LENGTH_LONG);
-                        } catch (Exception ex) {
-                            Log.d(TAG, ex.toString());
-                            Helpers.showToast(getContext(), "Load dữ liệu thất bại", Toast.LENGTH_LONG);
-                        } finally {
-                            _swipRefreshLayout.setRefreshing(false);
-                            Helpers.dismissLoadingDialog();
-                        }
-                    }
-                }
-        );
     }
 
     private void loadStatusColorCourses(CallWebAPI callWebAPI) {

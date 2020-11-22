@@ -22,4 +22,9 @@
         </menu>
 
     </item>
+    <item
+        android:id="@+id/btn_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:title=""
+        app:showAsAction="always"></item>
 </menu>
