@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shtptraining.trainingbooking.Adapters.StatusColorCoursesSpinnerAdapter;
@@ -32,6 +34,7 @@ import com.shtptraining.trainingbooking.Models.Course;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 import com.shtptraining.trainingbooking.R;
 
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,6 +88,9 @@ public class DetailCourseAct extends AppCompatActivity implements View.OnClickLi
     public Button _btn_start_time_course, _btn_end_time_course, _btn_date_course, _btn_start_date_course, _btn_confirm, _btn_back;
 
     private Course _selectedCourse = null;
+
+    private Date _old_start_date;
+    private String _old_name, _old_trainer_email;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -266,6 +272,19 @@ public class DetailCourseAct extends AppCompatActivity implements View.OnClickLi
         _btn_date_course.setHint(_selectedCourse.getDate());
         _btn_start_date_course.setHint(Helpers.toDDMMYYY(_selectedCourse.getStartDate()));
 
+        _old_start_date = Date.valueOf(_selectedCourse.getStartDate());
+        _old_name = _selectedCourse.getName();
+        _callWebAPI.getAccountByName(_selectedCourse.getTrainer()).enqueue(new Callback<List<Account>>() {
+            @Override
+            public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                _old_trainer_email = response.body().get(0).getEmail();
+            }
+
+            @Override
+            public void onFailure(Call<List<Account>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
     }
 
     private boolean validateForm() {
@@ -478,7 +497,75 @@ public class DetailCourseAct extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_back:
                 finish();
                 break;
+            case R.id.btn_confirm:
+                androidx.appcompat.app.AlertDialog.Builder builder = Helpers.showAlertDialogConfirmInfor(this, "Bạn có chắc muốn thay đổi thông tin khóa học / môn học mới này?", "Thay đổi thông tin khóa học / môn học");
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (validateForm()) {
+                            Runnable r = new Runnable() {
+                                @Override
+                                public void run() {
+                                    _callWebAPI.getAccountByName(_selectedTrainerName).enqueue(new Callback<List<Account>>() {
+                                        @Override
+                                        public void onResponse(Call<List<Account>> call, Response<List<Account>> response) {
+                                            _selectedTrainerEmail = response.body().get(0).getEmail();
+                                            String timeString = _btn_start_time_course.getHint() + " - " + _btn_end_time_course.getHint();
+                                            _callWebAPI.updateCourse(
+                                                    _et_name_course.getText().toString(),
+                                                    _et_duration_date_course.getText().toString(),
+                                                    _et_duration_time_course.getText().toString(),
+                                                    _et_duration_course.getText().toString(),
+                                                    timeString,
+                                                    _btn_date_course.getHint().toString(),
+                                                    Date.valueOf(Helpers.toYYYYMMDD(_btn_start_date_course.getHint().toString())),
+                                                    _selectedTrainerEmail,
+                                                    _et_fee_course.getText().toString(),
+                                                    _selectedStatusCode,
+                                                    Integer.parseInt(_et_numberOf_course.getText().toString()),
+                                                    _old_start_date,
+                                                    _old_name,
+                                                    _old_trainer_email
+                                            ).enqueue(new Callback<String>() {
+                                                @Override
+                                                public void onResponse(Call<String> call, Response<String> response) {
+                                                    if (response.body() != null && response.body().equals("Create course successfull")) {
+                                                        Helpers.showToast(DetailCourseAct.this, "Thêm thành công khóa học / môn học", Toast.LENGTH_SHORT);
+                                                        finish();
+                                                    } else {
+                                                        Helpers.showToast(DetailCourseAct.this, "Thêm thất bại khóa học / môn học", Toast.LENGTH_SHORT);
+                                                    }
+                                                }
 
+                                                @Override
+                                                public void onFailure(Call<String> call, Throwable t) {
+                                                    Log.e(TAG, t.getMessage());
+                                                    Helpers.showToast(DetailCourseAct.this, t.getMessage(), Toast.LENGTH_SHORT);
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<List<Account>> call, Throwable t) {
+                                            Log.e(TAG, t.getMessage());
+                                        }
+                                    });
+                                }
+                            };
+                            Thread getEmailTrainerThread = new Thread(r);
+                            getEmailTrainerThread.start();
+                        }
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
         }
     }
 
