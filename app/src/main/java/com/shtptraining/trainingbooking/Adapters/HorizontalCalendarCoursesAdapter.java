@@ -27,7 +27,7 @@ public class HorizontalCalendarCoursesAdapter extends RecyclerView.Adapter<Horiz
     @NonNull
     @Override
     public HorizontalCalendarCoursesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewDayOfWeek = LayoutInflater.from(_context).inflate(R.layout.item_horizontal_calendar_courses, null);
+        View viewDayOfWeek = LayoutInflater.from(_context).inflate(R.layout.item_vertical_calendar_courses, null);
         return new ViewHolder(viewDayOfWeek);
     }
 

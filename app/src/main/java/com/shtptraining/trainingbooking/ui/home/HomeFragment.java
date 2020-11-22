@@ -221,7 +221,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                     _courses = response.body();
 //                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                     RecyclerView recyclerView = _root.findViewById(finalRvID);
                     recyclerView.setLayoutManager(layoutManager);
                     CalendarCoursesAdapter adapter = new CalendarCoursesAdapter(getContext(), _courses);
