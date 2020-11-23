@@ -110,5 +110,13 @@
     <string name="lb_rating_course">Đánh giá khóa học / môn học</string>
     <!--endregion-->
 
+    <!--region Strings of Rating Smile-->
+    <string name="smile_lv1">Rất tệ</string>
+    <string name="smile_lv2">Tệ</string>
+    <string name="smile_lv3">Bình thường</string>
+    <string name="smile_lv4">Tốt</string>
+    <string name="smile_lv5">Rất tốt</string>
+    <!--endregion-->
+
 
 </resources>

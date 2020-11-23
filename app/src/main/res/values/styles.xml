@@ -124,9 +124,6 @@
         <item name="android:rating">3.0</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:scaleX">.75</item>
-        <item name="android:scaleY">.75</item>
 
     </style>
 </resources>
