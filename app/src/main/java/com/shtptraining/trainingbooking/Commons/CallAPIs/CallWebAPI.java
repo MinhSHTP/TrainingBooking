@@ -3,6 +3,7 @@ package com.shtptraining.trainingbooking.Commons.CallAPIs;
 import com.shtptraining.trainingbooking.Commons.Constants;
 import com.shtptraining.trainingbooking.Models.Account;
 import com.shtptraining.trainingbooking.Models.Course;
+import com.shtptraining.trainingbooking.Models.EvaluationCourse;
 import com.shtptraining.trainingbooking.Models.MessageFromAPI;
 import com.shtptraining.trainingbooking.Models.StatusColorCourse;
 
@@ -84,6 +85,17 @@ public interface CallWebAPI {
             @Field("duration") String duration, @Field("time") String time, @Field("date") String date,
             @Field("start_date") Date start_date, @Field("trainer") String trainer, @Field("fee") String fee,
             @Field("status") Integer status, @Field("numberof") Integer numberof, @Field("key1") Date old_start_date,
-            @Field("key2") String old_name, @Field("key3") String old_trainer
+            @Field("key2") String old_name, @Field("key3") String old_trainer);
+
+    //========================================================================================
+    @GET("EvaluationCourse/GET/GetAllEvaluationCourses.php")
+    Call<List<EvaluationCourse>> getAllEvaluationCourses();
+
+    @FormUrlEncoded
+    @POST("EvaluationCourse/POST/CreateDetailEvaluationCourse.php")
+    Call<String> createDetailEvaluationCourse(
+            @Field("id_course") Integer id_course, @Field("id_evaluation_course") Integer id_evaluation_course,
+            @Field("point") Float point, @Field("is_point") Boolean is_point,
+            @Field("note") String note, @Field("email") String email
     );
 }

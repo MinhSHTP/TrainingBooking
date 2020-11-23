@@ -104,8 +104,11 @@
     <string name="tv_undo_detail_course">Mặc định</string>
     <string name="txt_btnBack">Quay lại</string>
     <string name="txt_btnSave">Lưu thay đổi</string>
-
-
     <!--endregion-->
+
+    <!--region Strings of RatingCourseAct-->
+    <string name="lb_rating_course">Đánh giá khóa học / môn học</string>
+    <!--endregion-->
+
 
 </resources>

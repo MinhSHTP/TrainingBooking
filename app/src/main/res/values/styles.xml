@@ -91,7 +91,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:background">@android:drawable/editbox_background_normal</item>
-<!--        <item name="android:textColor">@android:color/darker_gray</item>-->
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="tv_create_course_act">
@@ -116,5 +116,17 @@
         <item name="android:layout_weight">3</item>
         <item name="android:src">@drawable/ic_calendar</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="rb_rating_course_act">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:rating">3.0</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:scaleX">.75</item>
+        <item name="android:scaleY">.75</item>
+
     </style>
 </resources>

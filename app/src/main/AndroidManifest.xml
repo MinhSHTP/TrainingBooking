@@ -62,6 +62,11 @@
             android:label="@string/lb_detail_course_act">
 
         </activity>
+        <activity
+            android:name=".ui.RatingCourseAct"
+            android:label="@string/lb_rating_course">
+
+        </activity>
     </application>
 
 </manifest>

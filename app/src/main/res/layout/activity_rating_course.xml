@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khóa đào tạo đáp ứng sự mong đợi của tôi"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_1"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nội dung đào tạo giúp được tôi rất nhiều trong công việc thực tế"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_2"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài giảng được bố cục và trình bày một cách hợp lý, dễ theo dõi"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_3"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài tập nhóm, thảo luận nhóm giúp tôi nắm bắt và hiểu sâu nội dung đào tạo"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_4"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời lượng đào tạo phù hợp để chuyển tải nội dung đào tạo"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_5"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời lượng dành cho việc đặt câu hỏi và thảo luận là phù hợp"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_6"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giáo viên có sự chuẩn bị tốt"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_7"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cơ sở vật chất đáp ứng tốt yêu cầu học tập"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_8"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài kiểm tra giúp ôn tập được bao quát các trọng tâm kiến thức"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_9"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Công tác tổ chức khóa học được thực hiện hiệu quả, chu đáo"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/rb_question_10"
+                style="@style/rb_rating_course_act" />
+        </LinearLayout>
+        <!--region EditText answer-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh/Chị thích nhất điểm gì ở khóa đào tạo?"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_question_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh/Chị nghĩ nội dung nào của khóa đào tạo nên được cải thiện?"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_question_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sau khóa học này, Anh/Chị nghĩ mình thu được những lợi ích/ kiến thức gì và phục vụ công việc thực tế như thế nào?"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_question_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh/Chị có mong muốn tham dự khóa học nào khác trong thời gian tới (Vui lòng liệt kê chi tiết)"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_question_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ý kiến khác"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_question_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!--endregion-->
+
+        <Button
+            android:id="@+id/btn_send_ratings_course"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_btnConfirm"
+            android:background="#24911a"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp" />
+
+    </LinearLayout>
+
+
+</ScrollView>
