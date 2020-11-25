@@ -170,7 +170,7 @@ public class RatingCourseAct extends AppCompatActivity {
                 _callWebAPI.createDetailEvaluationCourse(
                         _id_course,
                         Integer.parseInt(rb_questions.get(i).getTag().toString()),
-                        Float.parseFloat(String.valueOf(rb_questions.get(i).getRating())),
+                        rb_questions.get(i).getRating(),
                         true,
                         "",
                         Constants.ACCOUNT_LOGIN.getEmail()
@@ -197,7 +197,7 @@ public class RatingCourseAct extends AppCompatActivity {
                 _callWebAPI.createDetailEvaluationCourse(
                         _id_course,
                         Integer.parseInt(et_questions.get(i).getTag().toString()),
-                        0.0f,
+                        -1,
                         false,
                         "",
                         Constants.ACCOUNT_LOGIN.getEmail()

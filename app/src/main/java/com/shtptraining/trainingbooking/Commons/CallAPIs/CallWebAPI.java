@@ -95,7 +95,7 @@ public interface CallWebAPI {
     @POST("EvaluationCourse/POST/CreateDetailEvaluationCourse.php")
     Call<String> createDetailEvaluationCourse(
             @Field("id_course") Integer id_course, @Field("id_evaluation_course") Integer id_evaluation_course,
-            @Field("point") Float point, @Field("is_point") Boolean is_point,
+            @Field("point") Integer point, @Field("is_point") Boolean is_point,
             @Field("note") String note, @Field("email") String email
     );
 }
