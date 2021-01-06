@@ -116,6 +116,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     Helpers.dismissLoadingDialog();
                 }
                 break;
+            case R.id.btn_statistic_course:
+                downloadStatisticsFile();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -276,6 +279,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         .get(Calendar.YEAR), _myCalendar.get(Calendar.MONTH),
                         _myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
+        }
+    }
+
+    private void downloadStatisticsFile() {
+        try {
+
+            Helpers.showToast(getContext(), "Xuất file excel thành công", Toast.LENGTH_SHORT);
+        } catch (Exception ex) {
+            Helpers.showToast(getContext(), "Xuất file excel thất bại", Toast.LENGTH_SHORT);
         }
     }
 }
